@@ -14,6 +14,14 @@
 
 Welcome to the GitHub repository of the TechByte computer store project. This store is a modern e-commerce platform, offering a wide selection of computer products, including laptops, desktop computers, and components and accessories.
 
+<!-- ## Video on youtube:
+
+<a href="">
+  <img src="img/youtube.png" width="50%" />
+</a>
+
+<hr> -->
+
 ## Project Structure
 
 The repository is organized into several directories that are responsible for different parts of the web application and contain necessary files for the operation of the store. Here is a detailed description of each directory and file:
@@ -23,14 +31,21 @@ The repository is organized into several directories that are responsible for di
 The ComputerStore project contains several directories and files related to documentation, database design, and the application frontend.
 
 ### .github/workflows
+
 - static.yml # Configuration file for GitHub Actions
 
 ### backend
+
 ### app
+
 (Path to the main application logic, models, controllers)
+
 ### bootstrap
+
 (Path to the application bootstrap files)
+
 ### config
+
 - app.php
 - auth.php
 - cache.php
@@ -43,34 +58,44 @@ The ComputerStore project contains several directories and files related to docu
 - queue.php
 - services.php
 - session.php
-(Configuration files for the application)
+  (Configuration files for the application)
 
 ### database
+
 (Path to database migrations and seeds)
 
 ### public
+
 (Path to publicly accessible files)
 
 ### resources
+
 (Path to view templates and language files)
 
 ### routes
+
 (Path to route definitions)
 
 ### scripts
+
 (Path to custom scripts)
 
 ### storage
+
 (Path to storage files like logs, compiled views)
 
 ### tests
+
 (Path to test files)
 
 ### vendor
+
 (Path to Composer dependencies)
 
 ### docs
+
 ### jsDoc
+
 - database-storage-and-limitation.docx
 - project-description-v1.docx
 - project-description-v2.docx
@@ -78,6 +103,7 @@ The ComputerStore project contains several directories and files related to docu
 - README.md # Project documentation
 
 ### entity-relationship-diagram
+
 - DB-Diagram.pdf
 - ERD_v3.pdf
 - ERD_v3.png
@@ -90,13 +116,21 @@ The ComputerStore project contains several directories and files related to docu
 - README.md # ER diagram documentation
 
 ### frontend
+
 ### assets
+
 (Path to resources like graphics, CSS, etc.)
+
 ### components
+
 (Path to reusable components)
+
 ### computers
+
 (Possible path to computer-specific components or pages)
+
 ### laptops
+
 - account.html
 - cart.html
 - checkout.html
@@ -114,15 +148,18 @@ The ComputerStore project contains several directories and files related to docu
 - sales.html
 
 ## plsql-oracle19c
+
 ### python-codes
+
 - clear.sql
 - delete.sql
 - export_of_data.sql
 - export.sql
 - procedures.sql
-(PL/SQL scripts for database management)
+  (PL/SQL scripts for database management)
 
 ### Project root files
+
 - .env.example
 - .env
 - .gitignore
