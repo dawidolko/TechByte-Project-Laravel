@@ -26,72 +26,6 @@ Welcome to the GitHub repository of the TechByte computer store project. This st
 
 The repository is organized into several directories that are responsible for different parts of the web application and contain necessary files for the operation of the store. Here is a detailed description of each directory and file:
 
-### Structure of the ComputerStore Project
-
-The ComputerStore project contains several directories and files related to documentation, database design, and the application frontend.
-
-### .github/workflows
-
-- static.yml # Configuration file for GitHub Actions
-
-### backend
-
-### app
-
-(Path to the main application logic, models, controllers)
-
-### bootstrap
-
-(Path to the application bootstrap files)
-
-### config
-
-- app.php
-- auth.php
-- cache.php
-- database.php
-- filesystems.php
-- hashing.php
-- logging.php
-- mail.php
-- oracle.php
-- queue.php
-- services.php
-- session.php
-  (Configuration files for the application)
-
-### database
-
-(Path to database migrations and seeds)
-
-### public
-
-(Path to publicly accessible files)
-
-### resources
-
-(Path to view templates and language files)
-
-### routes
-
-(Path to route definitions)
-
-### scripts
-
-(Path to custom scripts)
-
-### storage
-
-(Path to storage files like logs, compiled views)
-
-### tests
-
-(Path to test files)
-
-### vendor
-
-(Path to Composer dependencies)
-
 ### docs
 
 ### jsDoc
@@ -117,20 +51,6 @@ The ComputerStore project contains several directories and files related to docu
 
 ### frontend
 
-### assets
-
-(Path to resources like graphics, CSS, etc.)
-
-### components
-
-(Path to reusable components)
-
-### computers
-
-(Possible path to computer-specific components or pages)
-
-### laptops
-
 - account.html
 - cart.html
 - checkout.html
@@ -146,8 +66,6 @@ The ComputerStore project contains several directories and files related to docu
 - login.html
 - privacy.html
 - sales.html
-
-## plsql-oracle19c
 
 ### python-codes
 
