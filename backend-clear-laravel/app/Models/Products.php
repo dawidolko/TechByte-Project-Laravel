@@ -14,6 +14,32 @@ class Products extends Model
     public $incrementing = true;
     protected $fillable = ['NAME', 'PRICE', 'QUANTITIES_AVAILABLE', 'SALE_ID', 'OLD_PRICE', 'DESCRIPTION'];
 
+    // Accessors for lowercase field names
+    public function getNameAttribute()
+    {
+        return $this->attributes['NAME'] ?? null;
+    }
+
+    public function getPriceAttribute()
+    {
+        return $this->attributes['PRICE'] ?? null;
+    }
+
+    public function getOldPriceAttribute()
+    {
+        return $this->attributes['OLD_PRICE'] ?? null;
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->attributes['DESCRIPTION'] ?? null;
+    }
+
+    public function getQuantitiesAvailableAttribute()
+    {
+        return $this->attributes['QUANTITIES_AVAILABLE'] ?? null;
+    }
+
     public function opinions()
     {
         return $this->hasMany(Opinions::class);
@@ -42,7 +68,7 @@ class Products extends Model
 
     public function photosProducts()
     {
-        return $this->hasMany(PhotosProducts::class);
+        return $this->hasMany(PhotosProducts::class, 'PRODUCTS_ID');
     }
 
     public function productsCategories()

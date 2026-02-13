@@ -7,25 +7,25 @@ class LaptopsController extends Controller
 {
     public function laptops()
     {
-        $randomProducts = Products::inRandomOrder()->take(4)->get();
+        $randomProducts = Products::with(['productsCategories', 'photosProducts'])->inRandomOrder()->take(4)->get();
 
         $laptopCategoryIds = [13, 14, 15];
-        $laptopyAll = Products::whereHas('productsCategories', function ($query) use ($laptopCategoryIds) {
+        $laptopyAll = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($laptopCategoryIds) {
             $query->whereIn('CATEGORY_ID', $laptopCategoryIds);
         })->get();
 
         $laptopCategoryIds2 = [13];
-        $laptopyGaming = Products::whereHas('productsCategories', function ($query) use ($laptopCategoryIds2) {
+        $laptopyGaming = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($laptopCategoryIds2) {
             $query->whereIn('CATEGORY_ID', $laptopCategoryIds2);
         })->get();
 
         $laptopCategoryIds3 = [14];
-        $laptopyLearning = Products::whereHas('productsCategories', function ($query) use ($laptopCategoryIds3) {
+        $laptopyLearning = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($laptopCategoryIds3) {
             $query->whereIn('CATEGORY_ID', $laptopCategoryIds3);
         })->get();
 
         $laptopCategoryIds4 = [15];
-        $laptopyOffice = Products::whereHas('productsCategories', function ($query) use ($laptopCategoryIds4) {
+        $laptopyOffice = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($laptopCategoryIds4) {
             $query->whereIn('CATEGORY_ID', $laptopCategoryIds4);
         })->get();
 

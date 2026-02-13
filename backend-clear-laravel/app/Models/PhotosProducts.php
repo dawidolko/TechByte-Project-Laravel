@@ -13,8 +13,14 @@ class PhotosProducts extends Model
    
     protected $fillable = ['PRODUCTS_ID', 'PATH'];
 
+    // Accessor for lowercase field name
+    public function getPathAttribute()
+    {
+        return $this->attributes['PATH'] ?? null;
+    }
+
     public function product()
     {
-        return $this->belongsTo(Products::class);
+        return $this->belongsTo(Products::class, 'PRODUCTS_ID');
     }
 }

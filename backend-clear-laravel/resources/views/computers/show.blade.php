@@ -287,7 +287,7 @@
               <div class="showcase-content">
                 <div class="caseBox-info">
                   <div class="caseBox1">
-                    <a href="{{ route($produkt->productsCategories->first()->category_name) }}#{{ $produkt->productsCategories->first()->description }}" class="showcase-category">{{ $produkt->productsCategories->first()->description }}</a>
+                    <a href="{{ route($produkt->productsCategories->first()->CATEGORY_NAME) }}#{{ $produkt->productsCategories->first()->description }}" class="showcase-category">{{ $produkt->productsCategories->first()->description }}</a>
 
                     <a href="{{route('computers.show', ['id' => $produkt->id])}}">
                       <h3 class="showcase-title">{{ $produkt->name }}</h3>

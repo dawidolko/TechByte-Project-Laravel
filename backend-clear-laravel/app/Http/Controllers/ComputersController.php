@@ -8,25 +8,25 @@ class ComputersController extends Controller
 {
     public function computers()
     {
-        $randomProducts = Products::inRandomOrder()->take(4)->get();
+        $randomProducts = Products::with(['productsCategories', 'photosProducts'])->inRandomOrder()->take(4)->get();
 
         $komputeryCategoryIds = [1, 2, 3];
-        $komputeryAll = Products::whereHas('productsCategories', function ($query) use ($komputeryCategoryIds) {
+        $komputeryAll = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komputeryCategoryIds) {
             $query->whereIn('CATEGORY_ID', $komputeryCategoryIds);
         })->get();
 
         $komputeryCategoryIds2 = [1];
-        $komputeryGaming = Products::whereHas('productsCategories', function ($query) use ($komputeryCategoryIds2) {
+        $komputeryGaming = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komputeryCategoryIds2) {
             $query->whereIn('CATEGORY_ID', $komputeryCategoryIds2);
         })->get();
 
         $komputeryCategoryIds3 = [2];
-        $komputeryLearning = Products::whereHas('productsCategories', function ($query) use ($komputeryCategoryIds3) {
+        $komputeryLearning = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komputeryCategoryIds3) {
             $query->whereIn('CATEGORY_ID', $komputeryCategoryIds3);
         })->get();
 
         $komputeryCategoryIds4 = [3];
-        $komputeryOffice = Products::whereHas('productsCategories', function ($query) use ($komputeryCategoryIds4) {
+        $komputeryOffice = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komputeryCategoryIds4) {
             $query->whereIn('CATEGORY_ID', $komputeryCategoryIds4);
         })->get();
 

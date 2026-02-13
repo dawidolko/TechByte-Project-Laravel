@@ -8,55 +8,55 @@ class ComponentsController extends Controller
 {
     public function components()
     {
-        $randomProducts = Products::inRandomOrder()->take(4)->get();
+        $randomProducts = Products::with(['productsCategories', 'photosProducts'])->inRandomOrder()->take(4)->get();
 
         $komponentyCategoryIds = [4, 5, 6, 7, 8, 9, 10, 11, 12];
-        $komponentyAll = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds) {
+        $komponentyAll = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds);
         })->get();
 
         $komponentyCategoryIds4 = [4];
-        $komponentyCases = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds4) {
+        $komponentyCases = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds4) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds4);
         })->get();
 
         $komponentyCategoryIds5 = [5];
-        $komponentyCooling = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds5) {
+        $komponentyCooling = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds5) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds5);
         })->get();
 
         $komponentyCategoryIds6 = [6];
-        $komponentyDisks = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds6) {
+        $komponentyDisks = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds6) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds6);
         })->get();
 
         $komponentyCategoryIds7 = [7];
-        $komponentyFans = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds7) {
+        $komponentyFans = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds7) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds7);
         })->get();
 
         $komponentyCategoryIds8 = [8];
-        $komponentyGraphics = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds8) {
+        $komponentyGraphics = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds8) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds8);
         })->get();
 
         $komponentyCategoryIds9 = [9];
-        $komponentyMemoryRam = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds9) {
+        $komponentyMemoryRam = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds9) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds9);
         })->get();
 
         $komponentyCategoryIds10 = [10];
-        $komponentyMotherboards = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds10) {
+        $komponentyMotherboards = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds10) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds10);
         })->get();
 
         $komponentyCategoryIds11 = [11];
-        $komponentyPowerSupply = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds11) {
+        $komponentyPowerSupply = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds11) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds11);
         })->get();
 
         $komponentyCategoryIds12 = [12];
-        $komponentyProccesors = Products::whereHas('productsCategories', function ($query) use ($komponentyCategoryIds12) {
+        $komponentyProccesors = Products::with(['productsCategories', 'photosProducts'])->whereHas('productsCategories', function ($query) use ($komponentyCategoryIds12) {
             $query->whereIn('CATEGORY_ID', $komponentyCategoryIds12);
         })->get();
 

@@ -1,0 +1,70 @@
+name: techbyte-project
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: techbyte-mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: sklepinternetowy
+      MYSQL_USER: sklep
+      MYSQL_PASSWORD: admin
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - techbyte-network
+
+  # Laravel Application
+  app:
+    build:
+      context: ../../
+      dockerfile: .tools/docker/Dockerfile
+    container_name: techbyte-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ../../backend-clear-laravel:/var/www
+      - ./php.ini:/usr/local/etc/php/conf.d/custom.ini
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=sklepinternetowy
+      - DB_USERNAME=sklep
+      - DB_PASSWORD=admin
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - techbyte-network
+
+  # Nginx Web Server
+  nginx:
+    image: nginx:alpine
+    container_name: techbyte-nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ../../backend-clear-laravel:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - techbyte-network
+
+networks:
+  techbyte-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local

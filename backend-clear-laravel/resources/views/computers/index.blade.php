@@ -366,7 +366,7 @@
               @forelse($randomProducts as $produkt)
               <div class="showcase">
                 <a
-                href="{{ route($produkt->productsCategories->first()->category_name) }}"
+                href="{{ route($produkt->productsCategories->first()->CATEGORY_NAME) }}"
                   class="showcase-img-box">
                   @php
                       $photoPath = $produkt->photosProducts->isNotEmpty() ? $produkt->photosProducts->first()->path : 'default.png';
@@ -379,7 +379,7 @@
                 </a>
 
                 <div class="showcase-content">
-                  <a href="{{ route($produkt->productsCategories->first()->category_name) }}">
+                  <a href="{{ route($produkt->productsCategories->first()->CATEGORY_NAME) }}">
                     <h3 class="showcase-title">{{ $produkt->name }}</h3>
                   </a>
 
@@ -465,7 +465,7 @@
               </div>
 
               <div class="showcase-content">
-                <a href="{{ route($produkt->productsCategories->first()->category_name) }}#{{ $produkt->productsCategories->first()->description }}" class="showcase-category">{{ $produkt->productsCategories->first()->description }}</a>
+                <a href="{{ route($produkt->productsCategories->first()->CATEGORY_NAME) }}#{{ $produkt->productsCategories->first()->DESCRIPTION }}" class="showcase-category">{{ $produkt->productsCategories->first()->DESCRIPTION }}</a>
 
                 <a href={{route('computers.show', ['id' => $produkt->id])}}>
                   <h3 class="showcase-title">{{ $produkt->name }}</h3>
@@ -541,7 +541,7 @@
               </div>
 
               <div class="showcase-content">
-                <a href="{{ route($produkt->productsCategories->first()->category_name) }}#{{ $produkt->productsCategories->first()->description }}" class="showcase-category">{{ $produkt->productsCategories->first()->description }}</a>
+                <a href="{{ route($produkt->productsCategories->first()->CATEGORY_NAME) }}#{{ $produkt->productsCategories->first()->DESCRIPTION }}" class="showcase-category">{{ $produkt->productsCategories->first()->DESCRIPTION }}</a>
 
                 <a href={{route('computers.show', ['id' => $produkt->id])}}>
                   <h3 class="showcase-title">{{ $produkt->name }}</h3>
@@ -616,7 +616,7 @@
               </div>
 
               <div class="showcase-content">
-                <a href="{{ route($produkt->productsCategories->first()->category_name) }}#{{ $produkt->productsCategories->first()->description }}" class="showcase-category">{{ $produkt->productsCategories->first()->description }}</a>
+                <a href="{{ route($produkt->productsCategories->first()->CATEGORY_NAME) }}#{{ $produkt->productsCategories->first()->DESCRIPTION }}" class="showcase-category">{{ $produkt->productsCategories->first()->DESCRIPTION }}</a>
 
                 <a href={{route('computers.show', ['id' => $produkt->id])}}>
                   <h3 class="showcase-title">{{ $produkt->name }}</h3>
@@ -692,7 +692,7 @@
               </div>
 
               <div class="showcase-content">
-                <a href="{{ route($produkt->productsCategories->first()->category_name) }}#{{ $produkt->productsCategories->first()->description }}" class="showcase-category">{{ $produkt->productsCategories->first()->description }}</a>
+                <a href="{{ route($produkt->productsCategories->first()->CATEGORY_NAME) }}#{{ $produkt->productsCategories->first()->DESCRIPTION }}" class="showcase-category">{{ $produkt->productsCategories->first()->DESCRIPTION }}</a>
 
                 <a href={{route('computers.show', ['id' => $produkt->id])}}>
                   <h3 class="showcase-title">{{ $produkt->name }}</h3>

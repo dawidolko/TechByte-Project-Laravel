@@ -6,21 +6,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-use Database\Seeders\CategoriesSeeder;
-use Database\Seeders\CustomersSeeder;
-use Database\Seeders\EmployeesSeeder;
-use Database\Seeders\SaleSeeder;
-use Database\Seeders\ProductsSeeder;
-use Database\Seeders\OpinionsSeeder;
-use Database\Seeders\NewsletterSeeder;
-use Database\Seeders\OrdersSeeder;
-use Database\Seeders\ComplaintsSeeder;
-use Database\Seeders\ShipmentsSeeder;
-use Database\Seeders\SpecificationsSeeder;
-use Database\Seeders\PhotosProductsSeeder;
-use Database\Seeders\OrdersProductsSeeder;
-use Database\Seeders\ProductsCategoriesSeeder;
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -28,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        DB::table('users')->delete();
+        // Disable foreign key checks for MySQL
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $this->call([
             CategoriesSeeder::class,
@@ -47,5 +32,8 @@ class DatabaseSeeder extends Seeder
             OrdersProductsSeeder::class,
             ProductsCategoriesSeeder::class,
         ]);
+
+        // Re-enable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

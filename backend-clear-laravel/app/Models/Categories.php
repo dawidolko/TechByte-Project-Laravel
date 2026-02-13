@@ -13,6 +13,17 @@ class Categories extends Model
     public $timestamps = false;
     protected $fillable = ['CATEGORY_NAME', 'DESCRIPTION'];
 
+    // Accessors for lowercase field names
+    public function getCategoryNameAttribute()
+    {
+        return $this->attributes['CATEGORY_NAME'] ?? null;
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->attributes['DESCRIPTION'] ?? null;
+    }
+
     public function products()
     {
         return $this->belongsToMany(Products::class, 'products_categories', 'category_id', 'products_id');

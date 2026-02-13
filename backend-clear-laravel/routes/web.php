@@ -97,3 +97,28 @@ Route::get('/test-orders', function () {
     $orders = $user->orders()->with('products')->get();
     dd($orders);
 });
+
+// Debug route for images
+Route::get('/debug-images', function () {
+    $product = App\Models\Products::with('photosProducts')->first();
+    
+    if ($product) {
+        $photos = $product->photosProducts;
+        
+        return response()->json([
+            'product_id' => $product->id,
+            'product_name' => $product->NAME,
+            'photos_count' => $photos->count(),
+            'photos' => $photos->map(function($photo) {
+                return [
+                    'id' => $photo->id,
+                    'path_raw' => $photo->PATH,
+                    'path_accessor' => $photo->path,
+                    'full_url' => asset('storage/images/' . $photo->PATH),
+                ];
+            }),
+        ]);
+    }
+    
+    return response()->json(['error' => 'No products found']);
+});

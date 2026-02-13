@@ -11,8 +11,7 @@
         "php": "^8.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
-        "stripe/stripe-php": "^14.6",
-        "yajra/laravel-oci8": "^11.2"
+        "stripe/stripe-php": "^14.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

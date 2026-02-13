@@ -12,6 +12,13 @@ The application features a dynamic JavaScript frontend, robust PHP backend, and 
 
 ```
 Database-Project-ComputerStore/
+├── 📁 .tools/             # Development tools and utilities
+│   └── 🐳 docker/         # Docker configuration for Laravel backend
+│       ├── 📄 docker-compose.yml   # Docker Compose setup
+│       ├── 🐋 Dockerfile           # Laravel app container
+│       ├── ⚙️ nginx.conf           # Nginx configuration
+│       ├── 🚀 entrypoint.sh        # Auto-initialization script
+│       └── 📖 README.md            # Docker documentation
 ├── 📁 frontend/           # JavaScript frontend application
 │   ├── 📄 index.html      # Main store homepage
 │   ├── 🛒 cart.html       # Shopping cart page
@@ -24,6 +31,11 @@ Database-Project-ComputerStore/
 │   ├── 🔧 api/            # RESTful API endpoints
 │   ├── 🔐 auth/           # Authentication and session management
 │   └── 🗄️ database/       # Database connection handlers
+├── 📁 backend-clear-laravel/  # Laravel 11 backend (production-ready)
+│   ├── 📁 app/            # Application core logic
+│   ├── 📁 database/       # Migrations and seeders
+│   ├── 📁 routes/         # API and web routes
+│   └── 📁 config/         # Framework configuration
 ├── 📁 plsql-oracle19c/    # PL/SQL database scripts
 │   ├── 📜 procedures.sql  # Stored procedures
 │   ├── 🔄 export.sql      # Data export scripts
@@ -46,21 +58,51 @@ Database-Project-ComputerStore/
 
 ## 🚀 Getting Started
 
-### 1. Clone the Repository
+### 🐳 Quick Start with Docker (Recommended)
+
+Najłatwiejszy sposób na uruchomienie projektu Laravel backend z pełną konfiguracją Oracle Database:
+
+```bash
+# Przejdź do katalogu Docker
+cd .tools/docker
+
+# Uruchom całe środowisko
+docker compose up -d
+
+# Poczekaj 2-3 minuty na inicjalizację bazy danych i migracje
+# Aplikacja będzie dostępna na: http://localhost:8080
+```
+
+**📖 Szczegółowa dokumentacja Docker:** Zobacz [.tools/docker/README.md](.tools/docker/README.md)
+
+**✨ Co jest automatycznie skonfigurowane:**
+
+- ✅ Oracle Database XE 21c z użytkownikiem `sklep`
+- ✅ PHP 8.2 z rozszerzeniem OCI8 i Composer
+- ✅ Nginx web server
+- ✅ Automatyczne migracje bazy danych
+- ✅ Automatyczne seedowanie danych testowych
+- ✅ Konfiguracja storage dla zdjęć produktów
+
+---
+
+### 🔧 Tradycyjna instalacja (Manualnie)
+
+#### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/dawidolko/Database-Project-ComputerStore.git
 cd Database-Project-ComputerStore
 ```
 
-### 2. Database Setup (Oracle 19c)
+#### 2. Database Setup (Oracle 19c)
 
 ```bash
 # Import database schema and data
 sqlplus username/password@database < plsql-oracle19c/procedures.sql
 ```
 
-### 3. Backend Configuration
+#### 3. Backend Configuration
 
 ```bash
 # Copy environment configuration
@@ -71,7 +113,7 @@ cp .env.example .env
 php -S localhost:8000 -t backend/
 ```
 
-### 4. Frontend Setup
+#### 4. Frontend Setup
 
 ```bash
 # Open frontend in browser or use a local server
@@ -86,7 +128,18 @@ npx http-server -p 3000
 
 ## ⚙️ System Requirements
 
-### **Essential Tools:**
+### **🐳 Docker Setup (Recommended):**
+
+- **Docker Desktop** (najnowsza wersja)
+- **Docker Compose** (wersja 3.8+)
+- **4GB RAM** minimum
+- **10GB wolnego miejsca** na dysku
+
+> ⚡ Z Docker wszystko jest automatycznie skonfigurowane - nie musisz instalować Oracle, PHP, ani Composer!
+
+---
+
+### **Essential Tools (Manual Setup):**
 
 - **Oracle Database 19c** or higher
 - **PHP** (version 7.4 or higher)

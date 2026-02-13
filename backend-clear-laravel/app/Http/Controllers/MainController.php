@@ -8,7 +8,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        $produktyPromocyjne = Products::whereHas('sale')->get();
+        $produktyPromocyjne = Products::whereHas('sale')->with('sale')->get();
         
         $iloscKomputerow = Products::whereHas('computerCategories')->sum('QUANTITIES_AVAILABLE');
         $iloscLaptopow = Products::whereHas('laptopCategories')->sum('QUANTITIES_AVAILABLE');
@@ -28,19 +28,23 @@ class MainController extends Controller
         $iloscLearningLaptops = Products::whereHas('learningLaptops')->sum('QUANTITIES_AVAILABLE');
         $iloscOfficeLaptops = Products::whereHas('officeLaptops')->sum('QUANTITIES_AVAILABLE');
 
-        $randomProducts = Products::inRandomOrder()->take(4)->get();
+        $randomProducts = Products::with(['productsCategories', 'photosProducts', 'sale'])
+            ->inRandomOrder()->take(4)->get();
 
-        $computerProducts = Products::whereHas('productsCategories', function ($query) {
-            $query->whereIn('CATEGORY_ID', [1, 2, 3]);
-        })->take(8)->get();
+        $computerProducts = Products::with(['productsCategories', 'photosProducts', 'sale'])
+            ->whereHas('productsCategories', function ($query) {
+                $query->whereIn('CATEGORY_ID', [1, 2, 3]);
+            })->take(8)->get();
 
-        $laptopProducts = Products::whereHas('productsCategories', function ($query) {
-            $query->whereIn('CATEGORY_ID', [13, 14, 15]);
-        })->take(8)->get();
+        $laptopProducts = Products::with(['productsCategories', 'photosProducts', 'sale'])
+            ->whereHas('productsCategories', function ($query) {
+                $query->whereIn('CATEGORY_ID', [13, 14, 15]);
+            })->take(8)->get();
 
-        $componentProducts = Products::whereHas('productsCategories', function ($query) {
-            $query->whereIn('CATEGORY_ID', [4, 5, 6, 7, 8, 9, 10, 11, 12]);
-        })->inRandomOrder()->take(8)->get();
+        $componentProducts = Products::with(['productsCategories', 'photosProducts', 'sale'])
+            ->whereHas('productsCategories', function ($query) {
+                $query->whereIn('CATEGORY_ID', [4, 5, 6, 7, 8, 9, 10, 11, 12]);
+            })->inRandomOrder()->take(8)->get();
 
         $selectedLaptop = Products::where('id', 19)->with('photosProducts')->first();
         $soldCount = 2; 
