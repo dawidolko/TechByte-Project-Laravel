@@ -22,6 +22,12 @@ cd /var/www
 rm -f composer.lock
 composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# Create .env file if it doesn't exist
+if [ ! -f /var/www/.env ]; then
+    echo "📝 Creating .env file from .env.example..."
+    cp /var/www/.env.example /var/www/.env
+fi
+
 # Generate application key if not set
 if ! grep -q "APP_KEY=base64:" /var/www/.env 2>/dev/null; then
     echo "🔑 Generating application key..."
