@@ -1,4 +1,4 @@
-# Database-Project-ComputerStore 
+# Database-Project-ComputerStore
 
 > 🚀 **Modern E-Commerce Platform for Computer Store** - Full-stack application with JavaScript Frontend, PHP Backend, and PL/SQL Oracle Database
 
