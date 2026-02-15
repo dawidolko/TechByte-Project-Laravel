@@ -25,9 +25,11 @@ WORKDIR /var/www
 # Copy application files
 COPY backend-clear-laravel /var/www
 
-# Copy entrypoint script
-COPY .tools/docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# Copy entrypoint script and convert CRLF to LF
+COPY .tools/docker/entrypoint.sh /tmp/entrypoint-win.sh
+RUN sed 's/\r$//' /tmp/entrypoint-win.sh > /usr/local/bin/entrypoint.sh && \
+    chmod +x /usr/local/bin/entrypoint.sh && \
+    rm /tmp/entrypoint-win.sh
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www && \
