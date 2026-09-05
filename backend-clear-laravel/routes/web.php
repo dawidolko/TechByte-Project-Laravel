@@ -33,15 +33,14 @@ Route::get('/sales', [MainController::class, 'sales'])->name('sales');
 Route::get('/privacy', [MainController::class, 'privacy'])->name('privacy');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login/authenticate', [AuthController::class, 'authenticate'])->name('login.authenticate');
+Route::post('/login/authenticate', [AuthController::class, 'authenticate']);
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate');
 Route::post('/cart/remove/{id}', [CartController::class, 'removeCartItem'])->name('cart.remove');
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('/favorites/remove/{id}', [FavoriteController::class, 'removeFromFavorites'])->name('favorites.remove');
 Route::post('/cart/add-multiple', [CartController::class, 'addMultipleToCart'])->name('cart.addMultiple');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 Route::get('/search', [SearchController::class, 'search'])->name('products.search');
 
 // Ścieżka dla dashboardu klienta
