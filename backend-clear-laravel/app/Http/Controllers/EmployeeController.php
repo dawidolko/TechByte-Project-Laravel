@@ -292,10 +292,17 @@ public function destroyCustomer($id)
 
 public function getOrderDataByYear($year)
 {
+    /*
+     * MONTH()/YEAR() zamiast TO_DATE().
+     *
+     * Zapytanie pochodzilo z czasow, gdy projekt stal na Oracle — `TO_DATE`
+     * nie istnieje w MySQL, wiec wykres zamowien na pulpicie pracownika
+     * konczyl sie bledem 500 przy kazdym otwarciu panelu.
+     */
     $orders = DB::table('orders')
-                ->select(DB::raw("EXTRACT(MONTH FROM TO_DATE(date_order, 'YY/MM/DD HH24:MI:SS')) as month"), DB::raw("COUNT(*) as count"))
-                ->whereRaw("EXTRACT(YEAR FROM TO_DATE(date_order, 'YY/MM/DD HH24:MI:SS')) = ?", [$year])
-                ->groupBy(DB::raw("EXTRACT(MONTH FROM TO_DATE(date_order, 'YY/MM/DD HH24:MI:SS'))"))
+                ->select(DB::raw('MONTH(date_order) as month'), DB::raw('COUNT(*) as count'))
+                ->whereRaw('YEAR(date_order) = ?', [$year])
+                ->groupBy(DB::raw('MONTH(date_order)'))
                 ->orderBy('month')
                 ->get();
 
