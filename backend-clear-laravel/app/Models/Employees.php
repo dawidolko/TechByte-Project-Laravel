@@ -17,6 +17,20 @@ class Employees extends Authenticatable
     ];
     protected $hidden = ['PASSWORD'];
 
+    /**
+     * Kolumna z hasłem nazywa się PASSWORD, nie password.
+     *
+     * Laravel domyślnie czyta `$this->password`, którego w tej tabeli nie ma —
+     * porównanie skrótu dostawało null i `Auth::attempt()` zawsze zwracał
+     * false. Logowanie było przez to niemożliwe niezależnie od poprawności
+     * danych.
+     */
+    public function getAuthPassword(): string
+    {
+        return $this->attributes['PASSWORD'] ?? '';
+    }
+
+
     public function orders()
     {
         return $this->hasMany(Orders::class);

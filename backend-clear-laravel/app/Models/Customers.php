@@ -14,6 +14,20 @@ class Customers extends Authenticatable
     public $timestamps = false;
 
     protected $hidden = ['PASSWORD'];
+
+    /**
+     * Kolumna z hasłem nazywa się PASSWORD, nie password.
+     *
+     * Laravel domyślnie czyta `$this->password`, którego w tej tabeli nie ma —
+     * porównanie skrótu dostawało null i `Auth::attempt()` zawsze zwracał
+     * false. Logowanie było przez to niemożliwe niezależnie od poprawności
+     * danych.
+     */
+    public function getAuthPassword(): string
+    {
+        return $this->attributes['PASSWORD'] ?? '';
+    }
+
     protected $fillable = [
         'NAME', 'LAST_NAME', 'DELIVERY_ADDRESS', 'PHONE_NUMBER', 'EMAIL', 'PASSWORD'
     ];
