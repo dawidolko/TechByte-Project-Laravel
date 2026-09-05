@@ -41,37 +41,51 @@ jobs:
           php artisan route:list > /dev/null
 
       - name: Validate compose file
+        # Compose wymaga sekretow przez skladnie `${ZMIENNA:?...}`. W CI nie ma
+        # ich i byc nie powinno — podstawiamy wartosci zastepcze, bo sprawdzamy
+        # SKLADNIE pliku, a nie poprawnosc hasel.
+        env:
+          DB_ROOT_PASSWORD: ci
+          DB_PASSWORD: ci
         run: docker compose -f .tools/docker/docker-compose.prod.yml config > /dev/null
+
+  sekrety:
+    name: Konfiguracja wdrozenia
+    runs-on: ubuntu-latest
+    outputs:
+      gotowe: ${{ steps.test.outputs.gotowe }}
+    steps:
+      - id: test
+        env:
+          IP: ${{ secrets.SERVER_IP }}
+          UZYTKOWNIK: ${{ secrets.SERVER_USER }}
+          KLUCZ: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          # Brak sekretow to nie blad budowania, tylko informacja, ze nie ma
+          # dokad wdrazac. Przebieg konczy sie wtedy na zielono, a zadanie
+          # `deploy` jest pomijane — dzieki temu czerwony status oznacza
+          # rzeczywisty problem z kodem, a nie nieskonfigurowane repozytorium.
+          brak=""
+          [ -z "$IP" ]         && brak="$brak SERVER_IP"
+          [ -z "$UZYTKOWNIK" ] && brak="$brak SERVER_USER"
+          [ -z "$KLUCZ" ]      && brak="$brak SSH_PRIVATE_KEY"
+
+          if [ -n "$brak" ]; then
+            echo "gotowe=nie" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Wdrozenie pominiete::Brak sekretow:$brak — dodaj je w Settings > Secrets and variables > Actions."
+            echo "Wdrozenie pominiete. Brakuje sekretow:$brak"
+          else
+            echo "gotowe=tak" >> "$GITHUB_OUTPUT"
+            echo "Sekrety obecne — wdrazam."
+          fi
 
   deploy:
     name: Deploy to production
     runs-on: ubuntu-latest
-    needs: verify
+    needs: [verify, sekrety]
+    if: needs.sekrety.outputs.gotowe == 'tak'
 
     steps:
-      - name: Sprawdz sekrety serwera
-        env:
-          IP: ${{ secrets.SERVER_IP }}
-          USER: ${{ secrets.SERVER_USER }}
-          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          # Bez tych sekretow `appleboy/ssh-action` probuje polaczyc sie
-          # z pustym hostem i konczy sie niejasnym bledem. Lepiej powiedziec
-          # wprost, czego brakuje.
-          brak=""
-          [ -z "$IP" ]   && brak="$brak SERVER_IP"
-          [ -z "$USER" ] && brak="$brak SERVER_USER"
-          [ -z "$KEY" ]  && brak="$brak SSH_PRIVATE_KEY"
-          if [ -n "$brak" ]; then
-            echo "BLAD: brakuje sekretow repozytorium:$brak"
-            echo "Dodaj je w Settings -> Secrets and variables -> Actions."
-            echo "  SERVER_IP        = adres serwera"
-            echo "  SERVER_USER      = uzytkownik SSH (root)"
-            echo "  SSH_PRIVATE_KEY  = klucz prywatny do tego serwera"
-            exit 1
-          fi
-          echo "Sekrety obecne."
-
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
         with:
