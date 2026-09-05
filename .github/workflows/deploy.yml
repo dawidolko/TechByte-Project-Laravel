@@ -1,0 +1,97 @@
+name: Deploy TechByte
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-techbyte
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Build and verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, pdo_mysql, gd, bcmath, intl, zip
+
+      - name: Install PHP dependencies
+        working-directory: backend-clear-laravel
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Prepare environment
+        working-directory: backend-clear-laravel
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Laravel checks
+        working-directory: backend-clear-laravel
+        run: |
+          php -l artisan
+          php artisan config:clear
+          php artisan route:list > /dev/null
+
+      - name: Validate compose file
+        run: docker compose -f .tools/docker/docker-compose.prod.yml config > /dev/null
+
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    needs: verify
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 25m
+          script: |
+            set -e
+            cd /var/www/techbyte
+
+            echo "==> Pobieranie zmian..."
+            git fetch origin main
+            git reset --hard origin/main
+
+            # `.env` nie jest wersjonowany (trzyma sekrety), wiec sprawdzamy go
+            # jawnie zamiast pozwolic docker compose paść na interpolacji.
+            if [ ! -f .tools/docker/.env ]; then
+              echo "BLAD: brak .tools/docker/.env — skopiuj .env.example i uzupelnij."
+              exit 1
+            fi
+
+            echo "==> Przebudowa kontenerow..."
+            docker compose -f .tools/docker/docker-compose.prod.yml up -d --build
+
+            echo "==> Oczekiwanie na aplikacje..."
+            for i in $(seq 1 40); do
+              code=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8110/ || echo "000")
+              case "$code" in 200|301|302) break;; esac
+              sleep 10
+            done
+
+            echo "==> Status:"
+            docker compose -f .tools/docker/docker-compose.prod.yml ps
+
+            echo "==> Weryfikacja odpowiedzi..."
+            code=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8110/ || echo "000")
+            echo "HTTP: $code"
+            case "$code" in
+              200|301|302) echo "==> Deploy zakonczony." ;;
+              *)
+                echo "Aplikacja nie odpowiada poprawnie."
+                docker compose -f .tools/docker/docker-compose.prod.yml logs --tail=60
+                exit 1
+                ;;
+            esac

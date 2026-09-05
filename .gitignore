@@ -1,3 +1,6 @@
 
 # macOS finder metadata
 .DS_Store
+
+# Sekrety stacku produkcyjnego. Wzorzec: .tools/docker/.env.example
+.tools/docker/.env

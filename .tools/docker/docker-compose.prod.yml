@@ -1,0 +1,89 @@
+# TechByte — stack produkcyjny (techbyte.dawidolko.pl).
+#
+# Rozni sie od `docker-compose.yml` trzema rzeczami:
+#
+#  1. Porty wychodza wylacznie na loopback i bridge Dockera. Ruch z internetu
+#     wchodzi przez nginx MP-Industries, ktory trzyma porty 80/443 i certyfikaty.
+#  2. Baza ma przyciete zuzycie pamieci. Serwer ma 3,7 GB RAM na wszystkie
+#     aplikacje, a MySQL z domyslnymi ustawieniami zjada ~450 MB sam.
+#  3. Start idzie przez `entrypoint.prod.sh` — bez `migrate:fresh`, ktore w
+#     wersji deweloperskiej kasuje baze przy kazdym restarcie.
+name: techbyte-project
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: techbyte-mysql
+    restart: unless-stopped
+    command: >-
+      --innodb-buffer-pool-size=64M
+      --performance-schema=OFF
+      --max-connections=50
+      --innodb-log-buffer-size=8M
+      --key-buffer-size=8M
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?ustaw DB_ROOT_PASSWORD w .tools/docker/.env}
+      MYSQL_DATABASE: ${DB_DATABASE:-techbyte}
+      MYSQL_USER: ${DB_USERNAME:-techbyte}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?ustaw DB_PASSWORD w .tools/docker/.env}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    networks:
+      - techbyte-network
+
+  app:
+    build:
+      context: ../../
+      dockerfile: .tools/docker/Dockerfile
+    container_name: techbyte-app
+    restart: unless-stopped
+    working_dir: /var/www
+    entrypoint: ["bash", "/usr/local/bin/entrypoint-prod.sh"]
+    command: ["php-fpm"]
+    volumes:
+      - ../../backend-clear-laravel:/var/www
+      - ./php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+      - ./entrypoint.prod.sh:/usr/local/bin/entrypoint-prod.sh:ro
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: https://techbyte.dawidolko.pl
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_DATABASE: ${DB_DATABASE:-techbyte}
+      DB_USERNAME: ${DB_USERNAME:-techbyte}
+      DB_PASSWORD: ${DB_PASSWORD:?ustaw DB_PASSWORD w .tools/docker/.env}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - techbyte-network
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: techbyte-nginx
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8110:80"
+      - "172.17.0.1:8110:80"
+    volumes:
+      - ../../backend-clear-laravel:/var/www:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - techbyte-network
+
+networks:
+  techbyte-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local
