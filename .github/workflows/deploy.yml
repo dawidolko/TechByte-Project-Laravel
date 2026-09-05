@@ -49,6 +49,29 @@ jobs:
     needs: verify
 
     steps:
+      - name: Sprawdz sekrety serwera
+        env:
+          IP: ${{ secrets.SERVER_IP }}
+          USER: ${{ secrets.SERVER_USER }}
+          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          # Bez tych sekretow `appleboy/ssh-action` probuje polaczyc sie
+          # z pustym hostem i konczy sie niejasnym bledem. Lepiej powiedziec
+          # wprost, czego brakuje.
+          brak=""
+          [ -z "$IP" ]   && brak="$brak SERVER_IP"
+          [ -z "$USER" ] && brak="$brak SERVER_USER"
+          [ -z "$KEY" ]  && brak="$brak SSH_PRIVATE_KEY"
+          if [ -n "$brak" ]; then
+            echo "BLAD: brakuje sekretow repozytorium:$brak"
+            echo "Dodaj je w Settings -> Secrets and variables -> Actions."
+            echo "  SERVER_IP        = adres serwera"
+            echo "  SERVER_USER      = uzytkownik SSH (root)"
+            echo "  SSH_PRIVATE_KEY  = klucz prywatny do tego serwera"
+            exit 1
+          fi
+          echo "Sekrety obecne."
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
         with:
