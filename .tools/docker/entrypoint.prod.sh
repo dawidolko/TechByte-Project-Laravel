@@ -27,6 +27,29 @@ if [ ! -d /var/www/vendor ] || [ ! -f /var/www/vendor/autoload.php ]; then
     composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 fi
 
+# Wartosci produkcyjne wpisujemy do `.env`, a nie zostawiamy tylko w zmiennych
+# srodowiskowych kontenera. `.env` skopiowany z `.env.example` niesie
+# APP_ENV=local i APP_URL=http://localhost — a z tego Laravel buduje adresy
+# zasobow. Efektem byla strona bez styli: linki do CSS szly przez `http://`
+# i przegladarka blokowala je jako mieszana tresc.
+ustaw_env() {
+    local klucz="$1" wartosc="$2"
+    if grep -q "^${klucz}=" /var/www/.env; then
+        sed -i "s|^${klucz}=.*|${klucz}=${wartosc}|" /var/www/.env
+    else
+        printf '%s=%s\n' "$klucz" "$wartosc" >> /var/www/.env
+    fi
+}
+
+ustaw_env APP_ENV   "${APP_ENV:-production}"
+ustaw_env APP_DEBUG "${APP_DEBUG:-false}"
+ustaw_env APP_URL   "${APP_URL:-http://localhost}"
+ustaw_env DB_HOST     "${DB_HOST:-mysql}"
+ustaw_env DB_PORT     "${DB_PORT:-3306}"
+ustaw_env DB_DATABASE "${DB_DATABASE:-techbyte}"
+ustaw_env DB_USERNAME "${DB_USERNAME:-techbyte}"
+ustaw_env DB_PASSWORD "${DB_PASSWORD}"
+
 if ! grep -q "^APP_KEY=base64:" /var/www/.env; then
     echo "==> Generowanie klucza aplikacji..."
     php artisan key:generate --force --ansi
