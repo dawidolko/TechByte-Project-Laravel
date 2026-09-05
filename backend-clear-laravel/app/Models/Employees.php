@@ -36,20 +36,26 @@ class Employees extends Authenticatable
         return $this->hasMany(Orders::class);
     }
 
+    /*
+     * Akcesory czytaja kolumny WIELKIMI literami — tak wygladaja w tej bazie.
+     * Wczesniej siegaly po klucze malymi ('name', 'last_name'), ktorych
+     * w atrybutach nie ma, wiec kazdy odczyt konczyl sie "Undefined array key"
+     * i cala strona wracala z bledem 500 zaraz po zalogowaniu pracownika.
+     */
     public function getNameAttribute($value)
     {
-        return $this->attributes['name'];
+        return $this->attributes['NAME'] ?? null;
     }
 
     public function getLastNameAttribute($value)
     {
-        return $this->attributes['last_name'];
+        return $this->attributes['LAST_NAME'] ?? null;
     }
 
 
     public function getJobPositionAttribute($value)
     {
-        return $this->attributes['job_position'];
+        return $this->attributes['JOB_POSITION'] ?? null;
     }
 
 
