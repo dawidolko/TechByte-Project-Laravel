@@ -1,2 +1,10 @@
+# Katalog i strony informacyjne sa publiczne; panele klienta i pracownika
+# siedza za logowaniem i nie maja czego pokazac wyszukiwarce.
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /customer/
+Disallow: /employee/
+Disallow: /cart
+Disallow: /favorite
+
+Sitemap: https://techbyte.dawidolko.pl/sitemap.xml
