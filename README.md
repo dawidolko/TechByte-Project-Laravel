@@ -1,249 +1,140 @@
-# Database-Project-ComputerStore
+# TechByte
 
-> 🚀 **Modern E-Commerce Platform for Computer Store** - Full-stack application with JavaScript Frontend, PHP Backend, and PL/SQL Oracle Database
+> 🖥️ **A shop that runs on Oracle** — a Laravel computer store where the business logic lives in PL/SQL, not only in PHP
 
-## 📋 Description
+**TechByte** is a computer store: laptops, desktops, components and accessories, with a basket, favourites, opinions, complaints and a newsletter. What makes it different from a standard Laravel shop is the database — it runs against **Oracle 19c** through `yajra/laravel-oci8`, and a good part of the logic sits in PL/SQL procedures and functions rather than in controllers.
 
-Welcome to the **TechByte** computer store repository! This project showcases a comprehensive e-commerce platform offering a wide selection of computer products, including laptops, desktop computers, components, and accessories. Built with modern web technologies and enterprise-grade database management, this platform demonstrates professional full-stack development practices.
+There are two front doors and two guards: customers get a dashboard, a profile and an order history; employees get their own area behind a separate `auth:employee` guard. A static HTML prototype of the whole shop lives beside the Laravel application, in `frontend/`.
 
-The application features a dynamic JavaScript frontend, robust PHP backend, and Oracle PL/SQL database with advanced stored procedures, triggers, and data management capabilities. This repository exemplifies best practices in database design, API development, and responsive user interface implementation.
+![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?logo=php&logoColor=white)
+![Oracle](https://img.shields.io/badge/Oracle-19c-F80000?logo=oracle&logoColor=white)
+![PL/SQL](https://img.shields.io/badge/PL%2FSQL-27%20routines-F80000?logo=oracle&logoColor=white)
+![Blade](https://img.shields.io/badge/Blade-templates-F05340?logo=laravel&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## 📁 Repository Structure
+**Live:** [techbyte.dawidolko.pl](https://techbyte.dawidolko.pl)
 
-```
-Database-Project-ComputerStore/
-├── 📁 .tools/             # Development tools and utilities
-│   └── 🐳 docker/         # Docker configuration for Laravel backend
-│       ├── 📄 docker-compose.yml   # Docker Compose setup
-│       ├── 🐋 Dockerfile           # Laravel app container
-│       ├── ⚙️ nginx.conf           # Nginx configuration
-│       ├── 🚀 entrypoint.sh        # Auto-initialization script
-│       └── 📖 README.md            # Docker documentation
-├── 📁 frontend/           # JavaScript frontend application
-│   ├── 📄 index.html      # Main store homepage
-│   ├── 🛒 cart.html       # Shopping cart page
-│   ├── 💻 computers.html  # Desktop computers catalog
-│   ├── 💼 laptops.html    # Laptops catalog
-│   ├── 👤 account.html    # User account management
-│   ├── 📧 contact.html    # Contact page
-│   └── 🎨 assets/         # Images, styles, and scripts
-├── 📁 backend/            # PHP backend logic and API
-│   ├── 🔧 api/            # RESTful API endpoints
-│   ├── 🔐 auth/           # Authentication and session management
-│   └── 🗄️ database/       # Database connection handlers
-├── 📁 backend-clear-laravel/  # Laravel 11 backend (production-ready)
-│   ├── 📁 app/            # Application core logic
-│   ├── 📁 database/       # Migrations and seeders
-│   ├── 📁 routes/         # API and web routes
-│   └── 📁 config/         # Framework configuration
-├── 📁 plsql-oracle19c/    # PL/SQL database scripts
-│   ├── 📜 procedures.sql  # Stored procedures
-│   ├── 🔄 export.sql      # Data export scripts
-│   ├── 🗑️ delete.sql      # Data deletion scripts
-│   └── 🧹 clear.sql       # Database cleanup scripts
-├── 📁 entity-relationship-diagram/  # Database design documentation
-│   ├── 📊 ERD_v3.pdf      # Latest ER diagram version
-│   ├── 🖼️ ERD_v3.png      # ER diagram image
-│   └── 📖 README.md       # ER diagram documentation
-├── 📁 docs/               # Project documentation
-│   ├── 📝 jsDoc/          # JavaScript API documentation
-│   └── 📚 project-description-v2.docx
-├── 📁 .github/workflows/  # CI/CD automation
-├── ⚙️ .env.example        # Environment configuration template
-├── 🔒 .gitignore          # Git ignore rules
-├── 🤝 CONTRIBUTING.md     # Contribution guidelines
-├── 📄 LICENSE             # MIT License
-└── 📖 README.md           # Project documentation
-```
+---
+
+## 🎯 Key Features
+
+- **Oracle as the primary database** — not MySQL with an Oracle badge. The default connection is `oracle`, the driver is `yajra/laravel-oci8`, and the schema, sequences and triggers are in `plsql-oracle19c/`.
+- **Logic in PL/SQL where it belongs** — twenty-seven procedures, functions and triggers: adding and updating products, registering customers, searching by name or e-mail, promotional listings, average ratings and top-rated products.
+- **Two guards, two areas** — `auth:customer` opens the dashboard, profile, favourites, basket and complaints; `auth:employee` opens the staff side. Neither can see the other's routes.
+- **Favourites and a basket per account** — both are stored against the customer, including adding several items at once from a list.
+- **Opinions and complaints as first-class records** — a customer rates a product or files a complaint, and both land in their own tables with their own PL/SQL support for averages.
+- **A catalogue split the way a computer shop is** — computers, laptops and components each have their own listing and product page, with specifications in a separate table.
+- **Search across the catalogue** — a dedicated controller rather than a filter tacked onto the listing.
+- **A static prototype alongside the application** — `frontend/` holds the full HTML/CSS/JS version the Laravel views were built from.
+
+---
+
+## 🗄️ Database
+
+The entity-relationship diagram is in `entity-relationship-diagram/`, and the scripts are in `plsql-oracle19c/`:
+
+| File                  | What it does                                             |
+| --------------------- | -------------------------------------------------------- |
+| `export.sql`          | Schema — tables, constraints, sequences.                 |
+| `export_of_data.sql`  | The catalogue and reference data.                        |
+| `procedures.sql`      | The 27 procedures, functions and triggers.               |
+| `delete.sql`, `clear.sql` | Tear-down and truncation, for a clean re-run.        |
+| `python-codes/`       | Helper scripts used to generate and load data.           |
+
+Tables behind the shop: `products`, `categories`, `products_categories`, `specifications`, `customers`, `employees`, `orders`, `orders_products`, `opinions`, `complaints`, `sales`, `newsletter`.
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology            | Version | Role                                                     |
+| --------------------- | ------- | -------------------------------------------------------- |
+| **Laravel**           | 11      | Routing, Eloquent, Blade, two authentication guards.      |
+| **PHP**               | 8.2     | Runtime.                                                  |
+| **Oracle Database**   | 19c     | Primary database; schema and logic in PL/SQL.             |
+| **yajra/laravel-oci8**| 11.2    | Oracle driver for Eloquent.                               |
+| **Stripe PHP**        | 14.6    | Payment integration.                                      |
+| **HTML/CSS/JS**       | —       | The static prototype in `frontend/`.                      |
+
+---
 
 ## 🚀 Getting Started
 
-### 🐳 Quick Start with Docker (Recommended)
+### Prerequisites
 
-Najłatwiejszy sposób na uruchomienie projektu Laravel backend z pełną konfiguracją Oracle Database:
+- PHP 8.2 with Composer and the OCI8 extension
+- Oracle Database 19c (or Oracle XE) reachable from the app
+- Node.js 18 for the asset build
+
+### 1. Clone the repository
 
 ```bash
-# Przejdź do katalogu Docker
-cd .tools/docker
-
-# Uruchom całe środowisko
-docker compose up -d
-
-# Poczekaj 2-3 minuty na inicjalizację bazy danych i migracje
-# Aplikacja będzie dostępna na: http://localhost:8080
+git clone https://github.com/dawidolko/TechByte-Project-Laravel.git
+cd TechByte-Project-Laravel/backend
 ```
 
-**📖 Szczegółowa dokumentacja Docker:** Zobacz [.tools/docker/README.md](.tools/docker/README.md)
-
-**✨ Co jest automatycznie skonfigurowane:**
-
-- ✅ Oracle Database XE 21c z użytkownikiem `sklep`
-- ✅ PHP 8.2 z rozszerzeniem OCI8 i Composer
-- ✅ Nginx web server
-- ✅ Automatyczne migracje bazy danych
-- ✅ Automatyczne seedowanie danych testowych
-- ✅ Konfiguracja storage dla zdjęć produktów
-
----
-
-### 🔧 Tradycyjna instalacja (Manualnie)
-
-#### 1. Clone the Repository
+### 2. Install and configure
 
 ```bash
-git clone https://github.com/dawidolko/Database-Project-ComputerStore.git
-cd Database-Project-ComputerStore
-```
-
-#### 2. Database Setup (Oracle 19c)
-
-```bash
-# Import database schema and data
-sqlplus username/password@database < plsql-oracle19c/procedures.sql
-```
-
-#### 3. Backend Configuration
-
-```bash
-# Copy environment configuration
+composer install
 cp .env.example .env
-
-# Edit .env file with your database credentials and settings
-# Start PHP backend server
-php -S localhost:8000 -t backend/
+php artisan key:generate
 ```
 
-#### 4. Frontend Setup
+Point `.env` at the Oracle instance:
+
+```env
+DB_CONNECTION=oracle
+DB_HOST=localhost
+DB_PORT=1521
+DB_SERVICE_NAME=XEPDB1
+DB_USERNAME=techbyte
+DB_PASSWORD=secret
+```
+
+### 3. Load the schema
+
+Run the scripts in `plsql-oracle19c/` in this order, with SQL*Plus or SQL Developer:
+
+```sql
+@export.sql             -- tables, constraints, sequences
+@export_of_data.sql     -- catalogue and reference data
+@procedures.sql         -- procedures, functions, triggers
+```
+
+### 4. Run
 
 ```bash
-# Open frontend in browser or use a local server
-cd frontend
-# Using Python simple server
-python -m http.server 3000
-# Or using Node.js http-server
-npx http-server -p 3000
+php artisan serve       # http://127.0.0.1:8000
 ```
 
-- Access the application at [http://localhost:3000](http://localhost:3000)
-
-## ⚙️ System Requirements
-
-### **🐳 Docker Setup (Recommended):**
-
-- **Docker Desktop** (najnowsza wersja)
-- **Docker Compose** (wersja 3.8+)
-- **4GB RAM** minimum
-- **10GB wolnego miejsca** na dysku
-
-> ⚡ Z Docker wszystko jest automatycznie skonfigurowane - nie musisz instalować Oracle, PHP, ani Composer!
+The static prototype needs no server — open `frontend/index.html` directly.
 
 ---
 
-### **Essential Tools (Manual Setup):**
+## 📁 Project Structure
 
-- **Oracle Database 19c** or higher
-- **PHP** (version 7.4 or higher)
-- **Web Server** (Apache, Nginx, or PHP built-in server)
-- **Modern Web Browser** (Chrome, Firefox, Safari, Edge)
-- **Git** for version control
+```
+TechByte-Project-Laravel/
+├── backend/                          # the Laravel application (Oracle connection)
+│   ├── app/
+│   │   ├── Http/Controllers/         # Main, Computers, Laptops, Components,
+│   │   │                             # Cart, Favorite, Search, Opinion,
+│   │   │                             # Complaint, Newsletter, Customer, Employee
+│   │   └── Models/                   # Products, Categories, Specifications,
+│   │                                 # Customers, Employees, Sale, Opinions…
+│   ├── config/database.php           # default connection: oracle
+│   └── routes/web.php                # customer and employee route groups
+├── backend-clear-laravel/            # a clean Laravel skeleton for comparison
+├── frontend/                         # the static HTML/CSS/JS prototype
+├── plsql-oracle19c/                  # schema, data, procedures, helper scripts
+├── entity-relationship-diagram/      # the ERD
+└── docs/                             # documentation, prototypes, diagrams
+```
 
-### **Development Environment:**
-
-- **Code Editor** (VS Code, PhpStorm, WebStorm)
-- **SQL Developer** or **SQLcl** for database management
-- **Postman** or **Insomnia** for API testing
-- **Node.js** (optional, for development tools)
-
-### **Database Requirements:**
-
-- **Oracle Database 19c** with PL/SQL support
-- **SQL\*Plus** for script execution
-- Proper database user privileges for DDL/DML operations
-
-### **Recommended Extensions:**
-
-- **PHP** syntax highlighting and IntelliSense
-- **SQL** formatting and validation
-- **Prettier** for code formatting
-- **ESLint** for JavaScript code quality
-- **Live Server** for frontend development
-
-## ✨ Key Features
-
-### **🛒 E-Commerce Functionality**
-
-- Complete product catalog with laptops, desktops, and components
-- Advanced shopping cart with real-time price calculations
-- Secure checkout process with order management
-
-### **👤 User Management**
-
-- User registration and authentication system
-- Personal account dashboard with order history
-- Favorite products and wishlist functionality
-
-### **🗄️ Database Architecture**
-
-- Comprehensive Entity-Relationship Diagram (ERD)
-- Advanced PL/SQL stored procedures and triggers
-- Optimized data export and import capabilities
-- Transaction management and data integrity constraints
-
-### **📱 Responsive Design**
-
-- Fully optimized for mobile, tablet, and desktop devices
-- Modern CSS Grid and Flexbox layouts
-- Intuitive navigation and user experience
-
-### **🔐 Security Features**
-
-- Session management and authentication
-- Secure database connections and prepared statements
-- Environment-based configuration management
-
-### **📊 Administrative Tools**
-
-- Database management scripts for maintenance
-- Data export functionality for backup and analysis
-- Comprehensive documentation and API specifications
-
-## 🛠️ Technologies Used
-
-- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
-- **Backend:** PHP 7.4+, RESTful API architecture
-- **Database:** Oracle Database 19c, PL/SQL
-- **Version Control:** Git, GitHub
-- **CI/CD:** GitHub Actions for automated workflows
-- **Documentation:** JSDoc, Markdown, Entity-Relationship Diagrams
-
-## 🌍 Live Demo
-
-The project is deployed and available at: **[https://techbyte.dawidolko.pl](https://techbyte.dawidolko.pl)**
-
-## 🖼️ Preview
-
-[<img src="frontend/assets/images/Main.png" width="80%" alt="TechByte Store Preview"/>](frontend/assets/images/Main.png)
-
-## 🤝 Contributing
-
-Contributions are highly welcomed! Here's how you can help:
-
-- 🐛 **Report bugs** - Found an issue? Let us know!
-- 💡 **Suggest improvements** - Have ideas for better features?
-- 🔧 **Submit pull requests** - Share your enhancements and solutions
-- 📖 **Improve documentation** - Help make the project clearer
-
-Please see our detailed contribution guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file before submitting your contributions.
-
-## 👨‍💻 Authors
-
-Created by:
-
-- **[Dawid Olko](https://github.com/dawidolko)** - Project Lead & Full-Stack Development
-- **[Piotr Smoła](https://github.com/piotrsmola)** - Database Design & Backend Development
+---
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
-
----
+MIT © [Dawid Olko](https://dawidolko.pl)
