@@ -1,5 +1,5 @@
-# Katalog i strony informacyjne sa publiczne; panele klienta i pracownika
-# siedza za logowaniem i nie maja czego pokazac wyszukiwarce.
+# The catalogue and the information pages are public; the customer and
+# employee panels sit behind a login and have nothing to show a crawler.
 User-agent: *
 Allow: /
 Disallow: /customer/

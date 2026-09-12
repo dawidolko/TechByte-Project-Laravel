@@ -1,2 +1,10 @@
+# The catalogue and the information pages are public; the customer and
+# employee panels sit behind a login and have nothing to show a crawler.
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /customer/
+Disallow: /employee/
+Disallow: /cart
+Disallow: /favorite
+
+Sitemap: https://techbyte.dawidolko.pl/sitemap.xml

@@ -117,7 +117,7 @@ The static prototype needs no server — open `frontend/index.html` directly.
 
 ```
 TechByte-Project-Laravel/
-├── backend/                          # the Laravel application (Oracle connection)
+├── backend/                          # the same application on Oracle (the coursework variant)
 │   ├── app/
 │   │   ├── Http/Controllers/         # Main, Computers, Laptops, Components,
 │   │   │                             # Cart, Favorite, Search, Opinion,
@@ -126,7 +126,7 @@ TechByte-Project-Laravel/
 │   │                                 # Customers, Employees, Sale, Opinions…
 │   ├── config/database.php           # default connection: oracle
 │   └── routes/web.php                # customer and employee route groups
-├── backend-clear-laravel/            # a clean Laravel skeleton for comparison
+├── backend-clear-laravel/            # the same application on MySQL — this is what production runs
 ├── frontend/                         # the static HTML/CSS/JS prototype
 ├── plsql-oracle19c/                  # schema, data, procedures, helper scripts
 ├── entity-relationship-diagram/      # the ERD

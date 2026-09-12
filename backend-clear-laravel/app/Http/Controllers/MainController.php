@@ -117,7 +117,13 @@ class MainController extends Controller
 
     public function sales()
     {
-        $produktyPromocyjne = Products::whereHas('sale')->get();
+        // `whereHas('productsCategories')` nie jest ozdobnikiem: widok buduje
+        // odnosnik przez `route($produkt->productsCategories->first()->category_name)`,
+        // wiec produkt promocyjny bez kategorii konczyl sie bledem 500.
+        $produktyPromocyjne = Products::whereHas('sale')
+            ->whereHas('productsCategories')
+            ->with(['sale', 'photosProducts', 'productsCategories'])
+            ->get();
         
         $iloscKomputerow = Products::whereHas('computerCategories')->sum('QUANTITIES_AVAILABLE');
         $iloscLaptopow = Products::whereHas('laptopCategories')->sum('QUANTITIES_AVAILABLE');
