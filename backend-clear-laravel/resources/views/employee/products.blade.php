@@ -36,6 +36,7 @@
             word-wrap: break-word; 
         }
     </style>    
+    <script src="/a11y/a11y-panel.js" data-accent="#1d4ed8" defer></script>
 </head>
 
 <body>

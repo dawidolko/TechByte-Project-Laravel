@@ -29,6 +29,7 @@
             margin-bottom: 0 !important;
         }
     </style>
+    <script src="/a11y/a11y-panel.js" data-accent="#1d4ed8" defer></script>
 </head>
 
 <body>

@@ -32,6 +32,7 @@
     <script>
         feather.replace();
     </script>
+    <script src="/a11y/a11y-panel.js" data-accent="#1d4ed8" defer></script>
 </head>
 
 <body>
