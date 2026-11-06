@@ -43,7 +43,6 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 Route::get('/search', [SearchController::class, 'search'])->name('products.search');
 
-// Ścieżka dla dashboardu klienta
 Route::middleware(['auth:customer'])->group(function () {
     Route::get('/customer/dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
     Route::get('/customer/profile', [CustomerController::class, 'profile'])->name('customer.profile');
@@ -61,7 +60,6 @@ Route::middleware(['auth:customer'])->group(function () {
     Route::post('/logout1', [AuthController::class, 'logout1'])->name('logout1');
 });
 
-// Ścieżka dla dashboardu pracownika
 Route::middleware(['auth:employee'])->group(function () {
     Route::get('/employee/dashboard', [EmployeeController::class, 'dashboard'])->name('employee.dashboard');
     Route::get('/employee/orders', [EmployeeController::class, 'Orders'])->name('employee.orders');

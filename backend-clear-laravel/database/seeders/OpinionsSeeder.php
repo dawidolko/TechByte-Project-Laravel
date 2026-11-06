@@ -13,6 +13,8 @@ class OpinionsSeeder extends Seeder
      */
     public function run(): void
     {
-        // Wstawiamy dane do tabeli 'opinions` jesli chcemy wstawic dane.
+        /*
+         * Insert data into the `opinions` table here if we want to seed it.
+         */
     }
 }

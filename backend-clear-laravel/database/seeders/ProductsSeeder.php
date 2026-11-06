@@ -2340,7 +2340,6 @@ class ProductsSeeder extends Seeder
                 <p>Upgrade to the Intel Core i3-13100 and experience a new level of performance, efficiency, and responsiveness. Whether youre a casual user, a content creator, or a gamer, this processor delivers the performance you need to tackle any task with confidence.</p>',
             ],
         ]);
-        // Informacje o wykonaniu Seeder'a
         $this->command->info('Records were successfully added to the database. Seeders are correct.');
     }
 }

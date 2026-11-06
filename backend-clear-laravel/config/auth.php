@@ -78,7 +78,7 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-        'employees' => [ // Dostawca dla pracowników
+        'employees' => [
             'driver' => 'eloquent',
             'model' => App\Models\Employees::class,
         ],

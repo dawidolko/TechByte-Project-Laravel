@@ -215,7 +215,9 @@
         </div>
       </div>
 
-      {{-- ! ! !SEKCJA PODSTRONY ! ! !--}}
+      {{--
+        ! ! !SUBPAGE SECTION ! ! !
+      --}}
         <div class="container">
           <div class="privacy-policy-container">
             <h1>Privacy Policy</h1>

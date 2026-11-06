@@ -161,19 +161,34 @@
                                 <label for="category" class="form-label">Category</label>
                                 <select id="category" name="category_id" class="form-control">
                                     <option value="">Select a category</option>
-                                    <option value="1">Gaming</option> {{-- Przypuszczam ID kategorii --}}
+                                    {{--
+                                      Assumed category ID
+                                    --}}
+                                    <option value="1">Gaming</option>
                                     <option value="2">Learning</option>
                                     <option value="3">Office</option>
-                                    <option value="4">Cases</option> {{-- Przypuszczam ID kategorii --}}
+                                    {{--
+                                      Assumed category ID
+                                    --}}
+                                    <option value="4">Cases</option>
                                     <option value="5">Cooling</option>
                                     <option value="6">Disks</option>
-                                    <option value="7">Fans</option> {{-- Przypuszczam ID kategorii --}}
+                                    {{--
+                                      Assumed category ID
+                                    --}}
+                                    <option value="7">Fans</option>
                                     <option value="8">Graphics</option>
                                     <option value="9">Ram Memories</option>
-                                    <option value="10">Motherboards</option> {{-- Przypuszczam ID kategorii --}}
+                                    {{--
+                                      Assumed category ID
+                                    --}}
+                                    <option value="10">Motherboards</option>
                                     <option value="11">Power Supplies</option>
                                     <option value="12">Processors</option>
-                                    <option value="13">Gaming</option> {{-- Przypuszczam ID kategorii --}}
+                                    {{--
+                                      Assumed category ID
+                                    --}}
+                                    <option value="13">Gaming</option>
                                     <option value="14">Learning</option>
                                     <option value="15">Office</option>
                                 </select>

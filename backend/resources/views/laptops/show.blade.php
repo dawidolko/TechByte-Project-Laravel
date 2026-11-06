@@ -50,7 +50,7 @@
         }
 
         .review p span {
-            color: #f39c12; /* Kolor dla gwiazdek */
+            color: #f39c12;
             font-size: 18px;
         }
 
@@ -267,7 +267,9 @@
         </div>
       </div>
 
-      {{-- ! ! !SEKCJA PODSTRONY ! ! !--}}
+      {{--
+        ! ! !SUBPAGE SECTION ! ! !
+      --}}
         
       <div id="imageOverlay" class="image-overlay" style="display: none">
         <span class="close-btn">&times;</span>
@@ -385,7 +387,9 @@
                             @endforelse
                         </table>
     
-                        <!-- Sekcja opinii -->
+                        <!--
+                          Reviews section
+                        -->
                         <div class="product-reviews-container" style="padding: 20px;">
                           <h2 class="product-reviews-title" style="text-align: center; font-size: 24px; color: #333; margin-bottom: 20px;">Customer Reviews</h2>
                           <div class="product-reviews" style="display: flex; flex-direction: column; gap: 20px;">

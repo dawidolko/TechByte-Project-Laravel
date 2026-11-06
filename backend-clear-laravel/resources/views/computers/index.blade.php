@@ -397,7 +397,9 @@
         </div>
       </div>
     </div>
-      {{-- ! ! ! SEKCJA PODSTRONY ! ! !  --}}
+      {{--
+        ! ! ! SUBPAGE SECTION ! ! !
+      --}}
 
       <div id="imageOverlay" class="image-overlay" style="display: none;">
         <span class="close-btn">&times;</span>

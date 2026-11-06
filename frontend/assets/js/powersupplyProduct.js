@@ -1,4 +1,3 @@
-// Dane produktów
 const productData = {
   power1: {
     description: `

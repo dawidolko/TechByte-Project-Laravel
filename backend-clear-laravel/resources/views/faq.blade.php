@@ -215,7 +215,9 @@
         </div>
       </div>
 
-      {{-- ! ! !SEKCJA PODSTRONY ! ! !--}}
+      {{--
+        ! ! !SUBPAGE SECTION ! ! !
+      --}}
       <div class="gpt-faq-container">
         <h2 class="gpt-faq-heading">Frequently Asked Questions</h2>
         <div class="gpt-accordion-item" id="gpt-faq-1">

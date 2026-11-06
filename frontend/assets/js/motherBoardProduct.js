@@ -1,4 +1,3 @@
-// Dane produktów
 const productData = {
   mobo1: {
     description: `
@@ -340,7 +339,6 @@ function populateProductSection() {
     }
     slidesContainer.appendChild(slideImg);
 
-    // Dodawanie miniatur
     const thumbnailImg = document.createElement("img");
     thumbnailImg.setAttribute("onclick", `setCurrentSlide(${index})`);
     thumbnailImg.src = imageSrc;

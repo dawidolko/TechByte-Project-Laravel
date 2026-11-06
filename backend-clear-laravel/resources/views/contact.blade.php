@@ -215,7 +215,9 @@
         </div>
       </div>
 
-      {{-- ! ! !SEKCJA PODSTRONY ! ! !--}}
+      {{--
+        ! ! !SUBPAGE SECTION ! ! !
+      --}}
 
       <div class="container new-conti">
         <section id="contact-techbyte">

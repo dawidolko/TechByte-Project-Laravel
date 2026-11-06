@@ -13,11 +13,15 @@ class NewsletterSeeder extends Seeder
      */
     public function run()
     {
-        // Zdefiniuj ID klientów, dla których chcesz utworzyć subskrypcje
+        /*
+         * Define the customer IDs to create subscriptions for
+         */
         $klientIds = [1, 5, 7, 15, 20];
 
         foreach ($klientIds as $klientId) {
-            // Losowa data początku subskrypcji w przeszłości
+            /*
+             * Random subscription start date in the past
+             */
             $randomDate = Carbon::now()->subDays(rand(0, 365))->format('Y-m-d H:i:s');
 
             Newsletter::create([
@@ -27,7 +31,6 @@ class NewsletterSeeder extends Seeder
             ]);
         }
 
-        // Informacje o wykonaniu Seeder'a
         $this->command->info('Newsletter subscriptions have been created for specified clients.');
     }
 }

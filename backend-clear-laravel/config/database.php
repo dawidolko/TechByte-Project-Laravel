@@ -121,7 +121,10 @@ return [
             'prefix' => env('DB_PREFIX', ''),
             'prefix_schema' => env('DB_SCHEMA_PREFIX', ''),
             // 'service_name' => env('DB_SERVICE_NAME', ''), // Wykomentowane, ponieważ używamy SID
-            'sid' => env('DB_SID', ''), // Wykomentowane, ponieważ używamy TNS
+            /*
+             * Commented out because we use TNS
+             */
+            'sid' => env('DB_SID', ''),
             'session_mode' => env('DB_SESSION_MODE', 'default'),
         ],        
 

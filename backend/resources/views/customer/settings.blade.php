@@ -215,9 +215,11 @@
         </div>
       </div>
 
-      {{-- ! ! !SEKCJA PODSTRONY ! ! !--}}
+      {{--
+        ! ! !SUBPAGE SECTION ! ! !
+      --}}
 
-      @if (Auth::check())  {{-- Sprawdza, czy użytkownik jest zalogowany --}}
+      @if (Auth::check())
           <div class="container mt-5 mb-5 marginbig">
               @include('shared.session-error')
 
@@ -227,18 +229,18 @@
                   </div>
               </div>
 
-              {{-- Sekcja zmiany adresu i miasta --}}
+              {{--
+                Address and city change section
+              --}}
               <div class="container mt-5 mb-5">
                   <div class="row d-flex justify-content-center">
                       <div class="col-md-6">
-                          {{-- Komunikaty o sukcesie --}}
                           @if (session('success'))
                               <div class="alert alert-success" role="alert">
                                   {{ session('success') }}
                               </div>
                           @endif
               
-                          {{-- Komunikaty o błędach --}}
                           @if ($errors->any())
                               <div class="alert alert-danger">
                                   @foreach ($errors->all() as $error)
@@ -280,7 +282,9 @@
                   </div>
               </div>
 
-              {{-- Sekcja zmiany hasła --}}
+              {{--
+                Password change section
+              --}}
               <div class="container mt-5 mb-5">
                 <div class="row d-flex justify-content-center">
                   <div class="col-md-6">

@@ -12576,7 +12576,6 @@ class SpecificationsSeeder extends Seeder
                 'SPECIFICATION' => 'BX8071513100',
             ],
         ]);
-        // Informacje o wykonaniu Seeder'a
         $this->command->info('Records were successfully added to the database. Seeders are correct.');
     }
 }

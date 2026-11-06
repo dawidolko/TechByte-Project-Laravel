@@ -9,7 +9,7 @@ class Newsletter extends Model
 {
     use HasFactory;
     protected $table = 'newsletter';
-    protected $primaryKey = 'ID_SUBSKRYPCJI'; // Ustaw klucz główny na właściwą kolumnę
+    protected $primaryKey = 'ID_SUBSKRYPCJI';
 
     protected $fillable = [
         'ID_KLIENTA', 'POCZATEK_SUBSKRYPCJI', 'STATUS_SUBSKRYPCJI'

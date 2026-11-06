@@ -9,7 +9,10 @@ class Zamowienia extends Model
 {
     use HasFactory;
     protected $table = 'zamowienia';
-    protected $fillable = ['ID_KLIENTA', 'ID_PRACOWNIKA', 'DATA_ZAMOWIENIA', 'STATUS']; // Dokładne nazwy z ERD
+    /*
+     * Exact names from the ERD
+     */
+    protected $fillable = ['ID_KLIENTA', 'ID_PRACOWNIKA', 'DATA_ZAMOWIENIA', 'STATUS'];
 
     public function klient()
     {

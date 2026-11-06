@@ -15,8 +15,10 @@ class Sale extends Model
         'DISCOUNT_AMOUNT', 'START_DATE', 'END_DATE'
     ];
 
-    // Pozostale modele wystawiaja kolumny pod nazwami malymi literami, wiec
-    // widok siegajacy po `$sale->discount_amount` dostawal null zamiast kwoty.
+    /*
+     * The other models expose columns under lowercase names, so a view reaching
+     * for `$sale->discount_amount` got null instead of the amount.
+     */
     public function getDiscountAmountAttribute()
     {
         return $this->attributes['DISCOUNT_AMOUNT'] ?? null;

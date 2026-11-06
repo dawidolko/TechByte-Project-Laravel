@@ -3069,12 +3069,13 @@
         const categoryButtons = document.querySelectorAll('.category-btn');
       
         function showSection(category) {
-          // Ukryj wszystkie sekcje
           document.querySelectorAll('.category-section').forEach(section => {
             section.style.display = 'none';
           });
       
-          // Pokaż wybraną sekcję, używając wartości z data-category lub z hash URL
+          /*
+           * Show the selected section, using the value from data-category or the URL hash
+           */
           const sectionToShow = document.querySelector(category);
           if (sectionToShow) {
             sectionToShow.style.display = 'block';
@@ -3090,13 +3091,19 @@
           });
         });
       
-        // Sprawdź, czy URL zawiera hash i użyj go do otwarcia odpowiedniej sekcji
+        /*
+         * Check whether the URL has a hash and use it to open the matching section
+         */
         const currentHash = window.location.hash;
         if (currentHash) {
-          // Usuń '#' z currentHash, ponieważ selektor CSS wymaga czystego ID
+          /*
+           * Remove '#' from currentHash, because the CSS selector requires a plain ID
+           */
           showSection(currentHash);
         } else {
-          // Domyślne otwarcie sekcji "Show all", jeśli nie ma hash w URL
+          /*
+           * Open the "Show all" section by default when the URL has no hash
+           */
           showSection('#all');
         }
       });
@@ -3107,28 +3114,38 @@
       document.addEventListener('DOMContentLoaded', function() {
         const overlay = document.getElementById('imageOverlay');
 
-        // Funkcja do otwierania overlay z obrazkiem
         function showOverlayImage(imgSrc) {
           overlay.style.display = 'flex';
           overlay.querySelector('.overlay-image').src = imgSrc;
         }
 
-        // Nasłuchiwanie kliknięcia na każdy przycisk 'eye-outline'
+        /*
+         * Listen for clicks on every 'eye-outline' button
+         */
         document.querySelectorAll('.magnification').forEach(button => {
           button.addEventListener('click', function(event) {
-            // Znajdź najbliższy obrazek i pobierz jego źródło
+            /*
+             * Find the closest image and get its source
+             */
             const imgSrc = this.closest('.showcase-banner').querySelector('.product-img.default').src;
             showOverlayImage(imgSrc);
-            event.stopPropagation(); // Zapobiegaj propagacji, aby kliknięcie na button nie zamykało od razu overlay
+            /*
+             * Stop propagation so the click on the button does not close the overlay at once
+             */
+            event.stopPropagation();
           });
         });
 
-        // Zamknięcie overlay po kliknięciu na krzyżyk
+        /*
+         * Close the overlay when the X is clicked
+         */
         document.querySelector('.image-overlay .close-btn').addEventListener('click', function() {
           overlay.style.display = 'none';
         });
 
-        // Zamknięcie overlay przez kliknięcie poza obrazek
+        /*
+         * Close the overlay when clicking outside the image
+         */
         overlay.addEventListener('click', function(event) {
           if (event.target === overlay) {
             overlay.style.display = 'none';
@@ -3138,7 +3155,9 @@
     </script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // Funkcja obracająca oba obrazy produktu
+        /*
+         * Rotates both product images
+         */
         function rotateImages(showcaseBanner, rotation) {
           const images = showcaseBanner.querySelectorAll('img');
           images.forEach(img => {
@@ -3149,11 +3168,10 @@
           });
         }
       
-        // Dodaj nasłuchiwacz do każdego przycisku 'repeat'
         document.querySelectorAll('.repeat').forEach(button => {
           button.addEventListener('click', function() {
             const showcaseBanner = this.closest('.showcase-banner');
-            rotateImages(showcaseBanner, 90); // Obróć o 90 stopni
+            rotateImages(showcaseBanner, 90);
           });
         });
       });

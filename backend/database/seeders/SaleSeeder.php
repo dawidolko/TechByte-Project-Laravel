@@ -63,7 +63,6 @@ class SaleSeeder extends Seeder
         foreach ($promotions as $promotion) {
             DB::table('sale')->insert($promotion);
         }
-        // Informacje o wykonaniu Seeder'a
         $this->command->info('Records were successfully added to the database. Seeders are correct.');
     }
 }

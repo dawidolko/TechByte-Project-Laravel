@@ -13,6 +13,8 @@ class ZamowieniaProduktySeeder extends Seeder
      */
     public function run(): void
     {
-        // Wstawiamy dane do tabeli 'ZamowieniaProduktow` jesli chcemy wstawic dane.
+        /*
+         * Insert data into the `ZamowieniaProduktow` table here if we want to seed it.
+         */
     }
 }

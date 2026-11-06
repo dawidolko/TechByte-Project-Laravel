@@ -14,7 +14,9 @@ BEGIN
 END;
 
 BEGIN
-  -- Usuń pozostałe obiekty (tabele, indeksy, widoki, sekwencje, procedury, funkcje)
+  /*
+   * Drop remaining objects (tables, indexes, views, sequences, procedures, functions)
+   */
   FOR cur_rec IN (SELECT object_name, object_type FROM user_objects WHERE object_type IN ('TABLE', 'INDEX', 'VIEW', 'SEQUENCE', 'PROCEDURE', 'FUNCTION')) LOOP
     BEGIN
       IF cur_rec.object_type = 'TABLE' THEN

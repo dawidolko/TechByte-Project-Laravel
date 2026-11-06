@@ -215,7 +215,9 @@
         </div>
       </div>
 
-      {{-- ! ! !SEKCJA PODSTRONY ! ! !--}}
+      {{--
+        ! ! !SUBPAGE SECTION ! ! !
+      --}}
       <div class="container">
         <h2 class="cart__heading">Favorite products</h2>
         <section class="cart">

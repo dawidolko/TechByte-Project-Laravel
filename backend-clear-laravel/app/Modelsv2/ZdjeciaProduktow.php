@@ -11,7 +11,10 @@ class ZdjeciaProduktow extends Model
     protected $table = 'zdjecia_produktow';
     protected $primaryKey = 'ID_ZDJECIA';
     
-    // ID_ZDJECIA jest kluczem głównym i autoinkrementowane, więc nie ma potrzeby dodawania do fillable
+    /*
+     * ID_ZDJECIA is the auto-incrementing primary key, so it does not need to be
+     * in fillable
+     */
     protected $fillable = ['ID_PRODUKTU', 'SCIEZKA'];
 
     public function produkt()
@@ -19,6 +22,8 @@ class ZdjeciaProduktow extends Model
         return $this->belongsTo(Produkty::class, 'ID_PRODUKTU');
     }
 
-    // Zdjęcia produktów nie mają własnych timestampów, chyba że zdecydujesz inaczej
+    /*
+     * Product images have no timestamps of their own, unless you decide otherwise
+     */
     public $timestamps = false;
 }

@@ -9,7 +9,10 @@ class Specyfikacje extends Model
 {
     use HasFactory;
     protected $table = 'specyfikacje';
-    protected $fillable = ['ID_PRODUKTU', 'NAZWA_PARAMETRU', 'SPECYFIKACJA']; // Dokładne nazwy z ERD
+    /*
+     * Exact names from the ERD
+     */
+    protected $fillable = ['ID_PRODUKTU', 'NAZWA_PARAMETRU', 'SPECYFIKACJA'];
 
     public function produkt()
     {

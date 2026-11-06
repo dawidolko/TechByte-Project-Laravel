@@ -39,7 +39,7 @@ public function Orders()
 
 public function showOrder($id)
 {
-    $order = Order::with('customer')->findOrFail($id); // Załadowanie klienta wraz z zamówieniem    
+    $order = Order::with('customer')->findOrFail($id);
     $employeeName = Employee::where('id', auth()->guard('employee')->user()->id)->first()->NAME;
     $employeeLastName = Employee::where('id', auth()->guard('employee')->user()->id)->first()->LAST_NAME;
     $jobPosition = Employee::where('id', auth()->guard('employee')->user()->id)->first()->JOB_POSITION;
@@ -293,11 +293,11 @@ public function destroyCustomer($id)
 public function getOrderDataByYear($year)
 {
     /*
-     * MONTH()/YEAR() zamiast TO_DATE().
+     * MONTH()/YEAR() instead of TO_DATE().
      *
-     * Zapytanie pochodzilo z czasow, gdy projekt stal na Oracle — `TO_DATE`
-     * nie istnieje w MySQL, wiec wykres zamowien na pulpicie pracownika
-     * konczyl sie bledem 500 przy kazdym otwarciu panelu.
+     * The query dates from when the project ran on Oracle - `TO_DATE` does not
+     * exist in MySQL, so the orders chart on the employee dashboard ended in a 500
+     * error every time the panel was opened.
      */
     $orders = DB::table('orders')
                 ->select(DB::raw('MONTH(date_order) as month'), DB::raw('COUNT(*) as count'))

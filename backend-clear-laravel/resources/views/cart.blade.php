@@ -215,7 +215,9 @@
         </div>
       </div>
 
-      {{-- ! ! !SEKCJA PODSTRONY ! ! !--}}
+      {{--
+        ! ! !SUBPAGE SECTION ! ! !
+      --}}
 
   <div class="container">
     <h2 class="cart__heading">Your cart</h2>

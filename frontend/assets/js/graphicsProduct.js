@@ -1,4 +1,3 @@
-// Dane produktów
 const productData = {
   graphics1: {
     description: `

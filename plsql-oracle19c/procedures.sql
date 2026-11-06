@@ -15,26 +15,26 @@ CREATE OR REPLACE PROCEDURE add_product (
     v_id_count NUMBER;
 BEGIN
     LOOP
-        -- Pobranie nowego ID z sekwencji
         SELECT product_seq.NEXTVAL INTO v_new_id FROM dual;
 
-        -- Sprawdzenie czy ID już istnieje
+        /*
+         * Check whether the ID already exists
+         */
         SELECT COUNT(*) INTO v_id_count FROM products WHERE ID = v_new_id;
 
-        -- Jeśli nie istnieje, wyjdź z pętli
         EXIT WHEN v_id_count = 0;
 
-        -- W przeciwnym razie, sekwencja jest zwiększana i pętla kontynuowana
+        /*
+         * Otherwise the sequence advances and the loop continues
+         */
     END LOOP;
 
-    -- Wstawienie produktu do tabeli
     INSERT INTO products (
         ID, NAME, PRICE, QUANTITIES_AVAILABLE, SALE_ID, OLD_PRICE, DESCRIPTION
     ) VALUES (
         v_new_id, p_name, p_price, p_quantities_available, p_sale_id, p_old_price, p_description
     );
 
-    -- Wstawienie produktu do kategorii, jeśli podano kategorię
     IF p_category_id IS NOT NULL THEN
         INSERT INTO products_categories (products_id, category_id)
         VALUES (v_new_id, p_category_id);

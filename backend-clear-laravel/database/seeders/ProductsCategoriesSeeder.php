@@ -35,7 +35,6 @@ class ProductsCategoriesSeeder extends Seeder
                 'CATEGORY_ID' => $productCategory[1],
             ]);
         }
-        // Informacje o wykonaniu Seeder'a
         $this->command->info('Records were successfully added to the database. Seeders are correct.');
     }
 }

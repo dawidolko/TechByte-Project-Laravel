@@ -1,4 +1,3 @@
-// Dane produktów
 const productData = {
   laptop1: {
     description: `

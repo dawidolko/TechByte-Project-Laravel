@@ -13,6 +13,8 @@ class OrdersProductsSeeder extends Seeder
      */
     public function run(): void
     {
-        // Wstawiamy dane do tabeli 'OrdersProducts` jesli chcemy wstawic dane.
+        /*
+         * Insert data into the `OrdersProducts` table here if we want to seed it.
+         */
     }
 }

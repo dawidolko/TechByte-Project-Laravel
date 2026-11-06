@@ -227,7 +227,9 @@ public function newProduct(Request $request)
 
     DB::beginTransaction();
     try {
-        // Wywołanie procedury PL/SQL
+        /*
+         * Call the PL/SQL procedure
+         */
         DB::statement('BEGIN add_product(:name, :price, :quantity, :sale_id, :old_price, :description, :category_id); END;', [
             'name' => $validated['name'],
             'price' => $validated['price'],
@@ -291,10 +293,14 @@ public function listCustomers(Request $request)
 
     if ($search) {
         try {
-            // Użyj surowego połączenia OCI8
+            /*
+             * Use a raw OCI8 connection
+             */
             $conn = oci_connect(env('DB_USERNAME'), env('DB_PASSWORD'), env('DB_CONNECTION_STRING'));
 
-            // Przygotuj procedurę PL/SQL
+            /*
+             * Prepare the PL/SQL procedure
+             */
             $sql = "BEGIN search_customers_by_email(:email, :cursor); END;";
             $stmt = oci_parse($conn, $sql);
 
@@ -324,7 +330,6 @@ public function listCustomers(Request $request)
                 ];
             });
 
-            // Paginacja wyników
             $perPage = 10;
             $currentPage = LengthAwarePaginator::resolveCurrentPage();
             $currentPageResults = $customers->slice(($currentPage - 1) * $perPage, $perPage)->values();

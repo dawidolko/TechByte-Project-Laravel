@@ -141,41 +141,41 @@ docker compose restart nginx
 ### Wyświetlenie logów
 
 ```bash
-# Wszystkie logi
+# All logs
 docker compose logs
 
-# Logi konkretnego kontenera
+# Logs of a specific container
 docker compose logs app
 docker compose logs mysql
 docker compose logs nginx
 
-# Podążanie za logami w czasie rzeczywistym
+# Follow logs in real time
 docker compose logs -f app
 ```
 
 ### Wejście do kontenera (bash)
 
 ```bash
-# Aplikacja Laravel
+# Laravel application
 docker compose exec app bash
 
-# Baza danych MySQL
+# MySQL database
 docker compose exec mysql bash
 ```
 
 ### Artisan Commands w kontenerze
 
 ```bash
-# Ponowne uruchomienie migracji
+# Re-run migrations
 docker compose exec app php artisan migrate:fresh --seed
 
-# Wyczyszczenie cache
+# Clear the cache
 docker compose exec app php artisan cache:clear
 
-# Lista routów
+# List routes
 docker compose exec app php artisan route:list
 
-# Tinker (interaktywna konsola)
+# Tinker (interactive console)
 docker compose exec app php artisan tinker
 ```
 
@@ -298,7 +298,7 @@ http://localhost:8080/storage/products/nazwa_pliku.jpg
 
 ## 🔐 Dane dostępowe
 
-### Baza danych MySQL
+### MySQL database
 
 - **Host**: `localhost:3307` (z hosta) lub `mysql:3306` (z kontenera)
 - **Port**: `3307` (zewnętrzny) / `3306` (wewnętrzny)

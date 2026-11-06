@@ -93,7 +93,6 @@ class CategoriesSeeder extends Seeder
                 'DESCRIPTION' => 'office',
             ],
         ]);
-        // Informacje o wykonaniu Seeder'a
         $this->command->info('Records were successfully added to the database. Seeders are correct.');
     }
 }

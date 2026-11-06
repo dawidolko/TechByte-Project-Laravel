@@ -1397,7 +1397,6 @@ body::-webkit-scrollbar-thumb:hover {
   text-decoration: underline;
 }
 
-/* Opis produktu */
 .product-description {
   padding: 20px 20px 20px 20px;
   text-align: justify;
@@ -1408,7 +1407,6 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 10px 10px 10px 10px;
 }
 
-/* Tabela specyfikacji */
 .product-specification {
   width: 95%;
   border-collapse: collapse;
@@ -1439,20 +1437,27 @@ body::-webkit-scrollbar-thumb:hover {
   color: white;
 }
 
-/* Alternatywne wiersze dla specyfikacji */
+/*
+ * Alternating rows of the specification table
+ */
 .product-specification .alt {
   background-color: #f9f9f9;
 }
 
-/* Style dla Slidera */
 .slider {
   position: relative;
 }
 
 .slides-container {
   position: relative;
-  height: 600px; /* Przykładowa stała wysokość, dostosuj do swoich potrzeb */
-  overflow: hidden; /* Zapobiegaj wyświetlaniu się poza kontenerem */
+  /*
+   * Example fixed height, adjust to your needs
+   */
+  height: 600px;
+  /*
+   * Prevent content from showing outside the container
+   */
+  overflow: hidden;
 }
 
 .slide {
@@ -1461,15 +1466,33 @@ body::-webkit-scrollbar-thumb:hover {
   position: absolute;
   top: 0;
   left: 0;
-  display: block; /* Zawsze wyświetlaj, ale może być niewidoczne */
-  opacity: 0; /* Domyślnie niewidoczne */
-  transition: opacity 0.5s; /* Płynne przejście dla efektu przełączania */
-  object-fit: cover; /* Upewnij się, że zdjęcie pokrywa obszar bez rozciągania */
+  /*
+   * Always displayed, but may be invisible
+   */
+  display: block;
+  /*
+   * Invisible by default
+   */
+  opacity: 0;
+  /*
+   * Smooth transition for the switching effect
+   */
+  transition: opacity 0.5s;
+  /*
+   * Make sure the image covers the area without stretching
+   */
+  object-fit: cover;
 }
 
 .slide.active {
-  opacity: 1; /* Tylko aktywny slajd jest widoczny */
-  z-index: 2; /* Upewnij się, że jest nad innymi slajdami */
+  /*
+   * Only the active slide is visible
+   */
+  opacity: 1;
+  /*
+   * Make sure it is above the other slides
+   */
+  z-index: 2;
 }
 
 .slide-nav {
@@ -1485,11 +1508,17 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .prev {
-  left: 10px; /* Ustawione wartości, aby zapobiec przyleganiu do krawędzi */
+  /*
+   * Values set to keep it from touching the edge
+   */
+  left: 10px;
 }
 
 .next {
-  right: 10px; /* Ustawione wartości, aby zapobiec przyleganiu do krawędzi */
+  /*
+   * Values set to keep it from touching the edge
+   */
+  right: 10px;
 }
 
 .thumbnail-container {
@@ -1500,7 +1529,10 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .thumbnail {
-  width: 50px; /* Dostosuj szerokość, jeśli potrzebujesz */
+  /*
+   * Adjust the width if needed
+   */
+  width: 50px;
   cursor: pointer;
   opacity: 0.6;
   transition: opacity 0.3s;

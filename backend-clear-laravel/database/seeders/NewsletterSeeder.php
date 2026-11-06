@@ -13,6 +13,8 @@ class NewsletterSeeder extends Seeder
      */
     public function run()
     {
-        // Wstawiamy dane do tabeli 'newsletter` jesli chcemy wstawic dane.
+        /*
+         * Insert data into the `newsletter` table here if we want to seed it.
+         */
     }
 }

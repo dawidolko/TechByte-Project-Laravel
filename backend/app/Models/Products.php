@@ -133,10 +133,12 @@ class Products extends Model
         return $opinions;
     }
 
-    // Klucz trzeba podac jawnie. Eloquent zgadlby `sale_id`, a potem szukalby
-    // tej nazwy w tablicy atrybutow modelu — ta trzyma klucz `SALE_ID`, wiec
-    // relacja zawsze wychodzila pusta, mimo ze `whereHas('sale')` (czysty SQL,
-    // nieczuly na wielkosc liter) produkt przepuszczal.
+    /*
+     * The key must be given explicitly. Eloquent would guess `sale_id` and then
+     * look for that name in the model's attributes array - which holds the key
+     * `SALE_ID`, so the relation always came back empty, even though
+     * `whereHas('sale')` (plain SQL, case-insensitive) let the product through.
+     */
     public function sale()
     {
         return $this->belongsTo(Sale::class, 'SALE_ID');

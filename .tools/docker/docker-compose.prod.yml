@@ -1,13 +1,14 @@
-# TechByte — stack produkcyjny (techbyte.dawidolko.pl).
+# TechByte - production stack (techbyte.dawidolko.pl).
 #
-# Rozni sie od `docker-compose.yml` trzema rzeczami:
+# Differs from `docker-compose.yml` in three ways:
 #
-#  1. Porty wychodza wylacznie na loopback i bridge Dockera. Ruch z internetu
-#     wchodzi przez nginx MP-Industries, ktory trzyma porty 80/443 i certyfikaty.
-#  2. Baza ma przyciete zuzycie pamieci. Serwer ma 3,7 GB RAM na wszystkie
-#     aplikacje, a MySQL z domyslnymi ustawieniami zjada ~450 MB sam.
-#  3. Start idzie przez `entrypoint.prod.sh` — bez `migrate:fresh`, ktore w
-#     wersji deweloperskiej kasuje baze przy kazdym restarcie.
+#  1. Ports are exposed only on loopback and the Docker bridge. Internet traffic
+#     comes in through the MP-Industries nginx, which holds ports 80/443 and the
+#     certificates.
+#  2. The database has reduced memory usage. The server has 3.7 GB of RAM for
+#     all applications, and MySQL with default settings uses ~450 MB on its own.
+#  3. Startup goes through `entrypoint.prod.sh` - without `migrate:fresh`, which
+#     in the development version wipes the database on every restart.
 name: techbyte-project
 
 services:
@@ -22,10 +23,10 @@ services:
       --innodb-log-buffer-size=8M
       --key-buffer-size=8M
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?ustaw DB_ROOT_PASSWORD w .tools/docker/.env}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?set DB_ROOT_PASSWORD in .tools/docker/.env}
       MYSQL_DATABASE: ${DB_DATABASE:-techbyte}
       MYSQL_USER: ${DB_USERNAME:-techbyte}
-      MYSQL_PASSWORD: ${DB_PASSWORD:?ustaw DB_PASSWORD w .tools/docker/.env}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .tools/docker/.env}
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
@@ -58,7 +59,7 @@ services:
       DB_PORT: "3306"
       DB_DATABASE: ${DB_DATABASE:-techbyte}
       DB_USERNAME: ${DB_USERNAME:-techbyte}
-      DB_PASSWORD: ${DB_PASSWORD:?ustaw DB_PASSWORD w .tools/docker/.env}
+      DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .tools/docker/.env}
     depends_on:
       mysql:
         condition: service_healthy

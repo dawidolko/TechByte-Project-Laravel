@@ -13,6 +13,8 @@ class PrzesylkiSeeder extends Seeder
      */
     public function run(): void
     {
-        // Wstawiamy dane do tabeli 'przesyłki` jesli chcemy wstawic dane.
+        /*
+         * Insert data into the `przesylki` table here if we want to seed it.
+         */
     }
 }

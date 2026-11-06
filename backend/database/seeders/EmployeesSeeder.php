@@ -206,7 +206,6 @@ class EmployeesSeeder extends Seeder
             Employees::create($employee);
         }
 
-        // Informacje o wykonaniu Seeder'a
         $this->command->info('Records were successfully added to the database. Seeders are correct.');
     }
 }

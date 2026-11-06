@@ -13,6 +13,8 @@ class ReklamacjeSeeder extends Seeder
      */
     public function run(): void
     {
-        // Wstawiamy dane do tabeli 'reklamacje` jesli chcemy wstawic dane.
+        /*
+         * Insert data into the `reklamacje` table here if we want to seed it.
+         */
     }
 }

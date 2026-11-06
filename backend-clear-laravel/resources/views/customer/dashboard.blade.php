@@ -238,7 +238,9 @@
         </div>
       </div>
 
-      {{-- ! ! !SEKCJA PODSTRONY ! ! !--}}
+      {{--
+        ! ! !SUBPAGE SECTION ! ! !
+      --}}
         
       <div class="row mt-4 mb-4 text-center" style="text-align: center;">
         <div class="col-12" style="    display: flex;

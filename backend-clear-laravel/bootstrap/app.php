@@ -12,14 +12,14 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         /*
-         * Aplikacja stoi za nginx, ktory konczy TLS i przekazuje ruch po HTTP.
-         * Bez zaufania do naglowkow X-Forwarded-* Laravel widzi zadanie jako
-         * http i generuje adresy zasobow z `http://` — na stronie serwowanej
-         * po HTTPS przegladarka blokuje je jako mieszana tresc i strona
-         * ladowala sie zupelnie bez styli.
+         * The app sits behind nginx, which terminates TLS and forwards traffic over
+         * HTTP. Without trusting the X-Forwarded-* headers Laravel sees the request as
+         * http and generates asset URLs with `http://` - on a page served over HTTPS
+         * the browser blocks them as mixed content and the page loaded with no styles
+         * at all.
          *
-         * Zaufanie do wszystkich adresow jest tu bezpieczne: do kontenera
-         * aplikacji nie da sie dostac z zewnatrz inaczej niz przez ten nginx.
+         * Trusting all addresses is safe here: the app container cannot be reached
+         * from outside other than through this nginx.
          */
         $middleware->trustProxies(at: '*');
     })

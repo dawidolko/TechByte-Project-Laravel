@@ -16,12 +16,12 @@ class Customers extends Authenticatable
     protected $hidden = ['PASSWORD'];
 
     /**
-     * Kolumna z hasłem nazywa się PASSWORD, nie password.
+     * The password column is named PASSWORD, not password.
      *
-     * Laravel domyślnie czyta `$this->password`, którego w tej tabeli nie ma —
-     * porównanie skrótu dostawało null i `Auth::attempt()` zawsze zwracał
-     * false. Logowanie było przez to niemożliwe niezależnie od poprawności
-     * danych.
+     * By default Laravel reads `$this->password`, which does not exist in this
+     * table - the hash comparison got null and `Auth::attempt()` always returned
+     * false. Login was therefore impossible regardless of whether the credentials
+     * were correct.
      */
     public function getAuthPassword(): string
     {
@@ -54,16 +54,16 @@ class Customers extends Authenticatable
     }
 
     /**
-     * Odczyt atrybutu z tolerancją na wielkość liter w nazwie kolumny.
+     * Attribute read that tolerates letter case in the column name.
      *
-     * Schemat tej bazy trzyma kolumny wielkimi literami (NAME, LAST_NAME,
-     * EMAIL), a widoki i kod Laravela sięgają po nie małymi (`$user->name`).
-     * Bez tego mostka każdy taki odczyt kończył się "Undefined array key" i
-     * wywracał całą stronę błędem 500 — widoczne po zalogowaniu, bo dopiero
-     * wtedy nawigacja pokazuje imię użytkownika.
+     * This database's schema keeps columns in uppercase (NAME, LAST_NAME, EMAIL),
+     * while views and Laravel code access them in lowercase (`$user->name`).
+     * Without this bridge every such read ended with "Undefined array key" and
+     * brought the whole page down with a 500 error - visible after login, because
+     * only then does the navigation show the user's name.
      *
-     * Mapowanie działa tylko wtedy, gdy atrybut o podanej nazwie nie istnieje,
-     * więc nie przesłania niczego, co model definiuje sam.
+     * The mapping only applies when no attribute with the given name exists, so it
+     * does not shadow anything the model defines itself.
      */
     public function getAttribute($key)
     {

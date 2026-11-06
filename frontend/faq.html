@@ -1505,11 +1505,15 @@
           if (content.style.display === 'block') {
             content.style.display = 'none';
           } else {
-            // Najpierw zwiń wszystkie
+            /*
+             * Collapse all first
+             */
             document.querySelectorAll('.gpt-accordion-content').forEach(item => {
               item.style.display = 'none';
             });
-            // Rozwiń kliknięty element
+            /*
+             * Expand the clicked item
+             */
             content.style.display = 'block';
           }
         });

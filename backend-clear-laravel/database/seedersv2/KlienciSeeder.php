@@ -14,7 +14,10 @@ class KlienciSeeder extends Seeder
      */
     public function run()
     {
-        Klienci::truncate(); // Usunięcie wszystkich wierszy z tabeli przed dodaniem nowych rekordów
+        /*
+         * Remove all rows from the table before adding new records
+         */
+        Klienci::truncate();
 
         Klienci::insert([
             [

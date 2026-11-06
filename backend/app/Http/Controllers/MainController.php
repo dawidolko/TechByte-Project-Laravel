@@ -8,9 +8,11 @@ class MainController extends Controller
 {
     public function index()
     {
-        // `whereHas('productsCategories')` nie jest ozdobnikiem: widok buduje
-        // odnosnik przez `route($produkt->productsCategories->first()->category_name)`,
-        // wiec produkt promocyjny bez kategorii konczyl sie bledem 500.
+        /*
+         * `whereHas('productsCategories')` is not decoration: the view builds the link
+         * via `route($produkt->productsCategories->first()->category_name)`, so a sale
+         * product without a category ended in a 500 error.
+         */
         $produktyPromocyjne = Products::whereHas('sale')
             ->whereHas('productsCategories')
             ->with(['sale', 'photosProducts', 'productsCategories'])

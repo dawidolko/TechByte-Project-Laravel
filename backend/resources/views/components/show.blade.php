@@ -215,7 +215,9 @@
         </div>
       </div>
 
-      {{-- ! ! !SEKCJA PODSTRONY ! ! !--}}
+      {{--
+        ! ! !SUBPAGE SECTION ! ! !
+      --}}
       <div id="imageOverlay" class="image-overlay" style="display: none">
         <span class="close-btn">&times;</span>
         <img class="overlay-image" src="" alt="Powiększone zdjęcie" />
